@@ -36,12 +36,12 @@
   {%- assign swatch_class = 'justify-center' -%}
 {%- endcase -%}
 
-<div class="group block h-full relative text-center type-product-grid-item {% unless settings.title_price_display == 'on_hover' %}hover:text-{{ section_color }}-accent{% endunless %}" x-data="{ current_swatch_variant: '' }">
+<div class="group block h-full relative text-center type-product-grid-item {% unless settings.title_price_display == 'on_hover' %}hover:text-scheme-accent{% endunless %}" x-data="{ current_swatch_variant: '' }" data-color-scheme="{{ section_color }}">
   {% comment %}Hidden link for screen readers, see Debut{% endcomment %}
   <a href="{{ product.url | within: collection }}" class="increase-target"><span class="visually-hidden">{{ product.title }}</span></a>
   <div class="relative">
     {%- if show_sale_badge and on_sale -%}
-      <div class="z-10 p-2  bg-{{ section_color }}-accent text-{{ section_color }}-text-overlay absolute {% if title_price_display == 'over_image_top' %}bottom-2{% else %}top-2{% endif %} right-2">On sale</div>
+      <div class="z-10 p-2  bg-scheme-accent text-scheme-text-overlay absolute {% if title_price_display == 'over_image_top' %}bottom-2{% else %}top-2{% endif %} right-2">On sale</div>
     {%- endif -%}
 
     <div class="w-full h-full  {% unless settings.fill_image_to_border_edge %}{% if title_price_display == 'under_image' %}pt-2 lg:pt-4{% else %}py-2 lg:py-4{% endif %} {% if reduce_gutter %}px-1 lg:px-2{% else %}px-2 lg:px-4{% endif %}{% endunless %} {% if title_price_display == 'under_image' and settings.fill_image_to_border_edge %}border-b-grid border-grid-color pb-0 lg:pb{% endif %} ">
@@ -80,7 +80,7 @@
 
         {% if product.media.size > 1 and settings.products_show_second_image_on_hover %}
           {% assign hover_image = product.media[1].preview_image %}
-          <div class="product-item-hover bg-{{ section_color }}-background lazyload absolute top-0 left-0 bottom-0 right-0 opacity-0 z-10 {% if object_contain_grid %}bg-contain{% else %}bg-cover{% endif %} bg-no-repeat bg-center transition-opacity duration-200 ease-in-out  group-hover:opacity-100"
+          <div class="product-item-hover bg-scheme-background lazyload absolute top-0 left-0 bottom-0 right-0 opacity-0 z-10 {% if object_contain_grid %}bg-contain{% else %}bg-cover{% endif %} bg-no-repeat bg-center transition-opacity duration-200 ease-in-out  group-hover:opacity-100"
               data-bgset="{% render 'responsive-bg-image', image: hover_image %}"
               data-sizes="auto"
               data-parent-fit="cover"
@@ -90,7 +90,7 @@
 
         {%- if settings.enable_color_swatches_collections -%}
           <div class="swatch-images-container hidden lg:block">
-            <div x-show.transition.opacity.duration.200ms="current_swatch_variant !== ''" class="bg-{{ section_color }}-background absolute top-0 right-0 bottom-0 left-0 z-20"></div>
+            <div x-show.transition.opacity.duration.200ms="current_swatch_variant !== ''" class="bg-scheme-background absolute top-0 right-0 bottom-0 left-0 z-20"></div>
             {%- assign swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase -%}
             {%- for option in product.options_with_values -%}
               {%- liquid
@@ -115,7 +115,7 @@
                     -%}
 
                     {%- if variant.image -%}
-                      <div class="hidden lg:block product-item-hover bg-{{ section_color }}-background lazyload absolute top-0 left-0 bottom-0 right-0 z-20 {% if object_contain_grid %}bg-contain{% else %}bg-cover{% endif %} bg-no-repeat bg-center transition-opacity duration-200 ease-in-out"
+                      <div class="hidden lg:block product-item-hover bg-scheme-background lazyload absolute top-0 left-0 bottom-0 right-0 z-20 {% if object_contain_grid %}bg-contain{% else %}bg-cover{% endif %} bg-no-repeat bg-center transition-opacity duration-200 ease-in-out"
                           data-bgset="{% render 'responsive-bg-image', image: variant.image %}"
                           data-sizes="auto"
                           data-parent-fit="cover"
@@ -134,16 +134,16 @@
       </div>
     </div>
 
-    <div class="{% if settings.product_grid_uppercase %}uppercase{% endif %} {% if title_price_display == 'on_hover' or title_price_display contains 'over_image' %}absolute {% if settings.fill_image_to_border_edge %}{% if title_price_display == 'over_image_top' %}top-0{% else %}bottom-0{% endif %} left-0 right-0{% else %}left-4 right-4 {% if title_price_display == 'over_image_top' %}top-4{% else %}bottom-4{% endif %}{% endif %}{% endif %} {% if title_price_display == 'on_hover' %}product-grid__meta opacity-0 group-hover:opacity-100 {% if settings.fill_image_to_border_edge %}border-t-grid border-grid-color  bg-{{ section_color }}-background {% endif %}  transition-opacity duration-200 ease-in-out text-{{ section_color }}-text {% endif %} py-4 {% if reduce_gutter %}px-1 lg:px-2{% else %}section-x-padding{% endif %} justify-between {{ layout_class }}">
+    <div class="{% if settings.product_grid_uppercase %}uppercase{% endif %} {% if title_price_display == 'on_hover' or title_price_display contains 'over_image' %}absolute {% if settings.fill_image_to_border_edge %}{% if title_price_display == 'over_image_top' %}top-0{% else %}bottom-0{% endif %} left-0 right-0{% else %}left-4 right-4 {% if title_price_display == 'over_image_top' %}top-4{% else %}bottom-4{% endif %}{% endif %}{% endif %} {% if title_price_display == 'on_hover' %}product-grid__meta opacity-0 group-hover:opacity-100 {% if settings.fill_image_to_border_edge %}border-t-grid border-grid-color  bg-scheme-background {% endif %}  transition-opacity duration-200 ease-in-out text-scheme-text {% endif %} py-4 {% if reduce_gutter %}px-1 lg:px-2{% else %}section-x-padding{% endif %} justify-between {{ layout_class }}">
       <div class="{{ title_class }} break-words">
         {% if settings.product_grid_show_vendor and product.vendor != '' %}
-          <p class="mb-1 text-{{ section_color }}-meta {% if sold_out %} line-through{% endif %}">{{ product.vendor }}</p>
+          <p class="mb-1 text-scheme-meta {% if sold_out %} line-through{% endif %}">{{ product.vendor }}</p>
         {% endif %}
-        <p  aria-hidden="true" class="product-grid-title {% if sold_out %}text-{{ section_color }}-meta line-through{% endif %}">{{ product.title }}</p>
+        <p  aria-hidden="true" class="product-grid-title {% if sold_out %}text-scheme-meta line-through{% endif %}">{{ product.title }}</p>
       </div>
       <div class="{{ price_class }}">
         {% if sold_out %}
-          <s class="text-{{ section_color }}-meta">{{ 'products.product.sold_out' | t }}</s>
+          <s class="text-scheme-meta">{{ 'products.product.sold_out' | t }}</s>
         {% else %}
           {% if on_sale and sold_out != true %}
             <s class="block lg:inline"><span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>{{ product.compare_at_price | money }}</s>
@@ -151,9 +151,9 @@
           {% if on_sale %}
             {% if product.price_varies %}
               {%- assign sale_price = product.price | money -%}
-              <span class="text-{{ section_color }}-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span><br/>{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</span>
+              <span class="text-scheme-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span><br/>{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</span>
             {% else %}
-              <span class="text-{{ section_color }}-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>{{ product.price | money }}</span>
+              <span class="text-scheme-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>{{ product.price | money }}</span>
             {% endif %}
           {% else %}
             {% if product.price_varies %}
@@ -166,7 +166,7 @@
         {% endif %}
         {% assign current_variant = product.first_available_variant %}
         {%- if current_variant.unit_price -%}
-          <p class="{% if sold_out %}text-{{ section_color }}-meta line-through{% endif %} text-xs" data-unit-price-wrapper>
+          <p class="{% if sold_out %}text-scheme-meta line-through{% endif %} text-xs" data-unit-price-wrapper>
             <span data-unit-price>
               {{- current_variant.unit_price | money -}}
             </span>
@@ -217,7 +217,7 @@
               -%}
               <a
                 href="{{ variant.url | within: collection }}"
-                class="p-px border-{{ section_color }}-text {% render 'button-style', section_color: section_color %} border-text mx-1 mt-2"
+                class="p-px border-scheme-text {% render 'button-style', section_color: section_color %} border-text mx-1 mt-2"
                 x-on:mouseenter="current_swatch_variant = '{{ variant.id }}'"
                 >
                 <span class="block p-2 {% render 'button-style', section_color: section_color %}" style="background-image: url({{ color_image }}); background-color: {{ color_swatch_fallback }};"></span>

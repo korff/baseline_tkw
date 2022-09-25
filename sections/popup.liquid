@@ -1,11 +1,13 @@
 {%- assign section_color = section.settings.color_scheme -%}
 {% unless section.settings.display_mode == 'disabled' %}
 {%- assign text_size_class = section.settings.text_size -%}
-<section x-data="ThemeSection_{{ section.id }}()"
-        x-cloak
-        x-init="frequency = {{ section.settings.frequency }}, delay = {{ section.settings.delay }}, mounted()"
-        :class="{ 'translate-y-0-important' : show }"
-         class="popup fixed right-0 bottom-0 left-0 pt-8 lg:pt-0 bg-{{ section_color }}-background text-{{ section_color }}-text z-70 border-t-grid border-grid-color transition-transform duration-300 in-expo transform translate-y-full"  data-section-type="popup"   data-section-id="{{ section.id }}">
+<section
+  x-data="ThemeSection_{{ section.id }}()"
+  x-cloak
+  x-init="frequency = {{ section.settings.frequency }}, delay = {{ section.settings.delay }}, mounted()"
+  :class="{ 'translate-y-0-important' : show }"
+  class="popup fixed right-0 bottom-0 left-0 pt-8 lg:pt-0 bg-scheme-background text-scheme-text z-70 border-t-grid border-grid-color transition-transform duration-300 in-expo transform translate-y-full"  data-section-type="popup"   data-section-id="{{ section.id }}"
+  data-color-scheme="{{ section_color }}">
   <button @click="closePopUp($event)" class="block p-1 w-8 ml-auto absolute top-2 right-2">
     <span class="visually-hidden">{{ 'general.accessibility.close_modal' | t }}</span>
     <span class="inline-block w-5 h-5">{% render 'icon-close' %}</span>
@@ -25,7 +27,7 @@
       {%- if section.settings.call_to_action == 'newsletter' -%}
         {%- form 'customer' %}
           {%- if form.errors and template.suffix != 'contact' -%}
-          <div x-ref="form-errors" class="text-{{ section_color }}-accent">
+          <div x-ref="form-errors" class="text-scheme-accent">
           {{ form.errors | default_errors }}
           </div>
           {%- endif-%}
@@ -37,7 +39,7 @@
           <div class="lg:flex items-center">
             <label class="visually-hidden" for="Email-{{ section.id }}">{{ 'general.newsletter_form.email_placeholder' | t }}</label>
             <input type="email"
-              class="font-body border-b-text border-{{ section_color }}-text w-full block bg-transparent pb-1"
+              class="font-body border-b-text border-scheme-text w-full block bg-transparent pb-1"
               name="contact[email]"
               id="Email-{{ section.id }}"
               value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
@@ -45,7 +47,7 @@
               autocorrect="off"
               autocapitalize="off">
 
-            <button class="mt-2 lg:mt-0 lg:ml-2 pb-1 font-body align-top inline-flex items-center justify-center  hover:text-{{ section_color }}-accent {% if settings.links_show_underline %}border-b-text border-{{ section_color }}-text  hover:border-{{ section_color }}-accent pb-1{% endif %}" type="submit" name="commit" id="Popup-Subscribe">
+            <button class="mt-2 lg:mt-0 lg:ml-2 pb-1 font-body align-top inline-flex items-center justify-center  hover:text-scheme-accent {% if settings.links_show_underline %}border-b-text border-scheme-text  hover:border-scheme-accent pb-1{% endif %}" type="submit" name="commit" id="Popup-Subscribe">
               <span class="{% if settings.links_uppercase %}uppercase{% endif %}">{{ 'general.newsletter_form.submit' | t }}{% if settings.links_show_arrow %}&nbsp;&rarr;{% endif %}</span>
             </button>
           </div>

@@ -7,7 +7,7 @@
   - Text: description of the rich text section
 {%- endcomment -%}
 {%- assign section_color = section.settings.color_scheme -%}
-<section class="bg-{{ section_color }}-background text-{{ section_color }}-text overflow-hidden border-t-grid border-grid-color">
+<section class="bg-scheme-background text-scheme-text overflow-hidden border-t-grid border-grid-color" data-color-scheme="{{ section_color }}">
   <div class="px-2 lg:px-4 py-theme">
     <div class="multi-column col-gap-lg {{ section.settings.desktop_columns }} space-y-2 {{ section.settings.text_alignment }} text-base {{ section.settings.desktop_text_size }}">
       {% if section.settings.title != '' %}

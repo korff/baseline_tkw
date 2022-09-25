@@ -3,14 +3,14 @@
   helpers used for responsive-table labels
 {% endcomment %}
 
-<div class="section-x-padding py-theme max-w-screen mx-auto">
+<div class="section-x-padding py-theme max-w-screen mx-auto" data-color-scheme="{{ section_color }}">
   <div class="mb-8 text-center">
     <h1 class="font-heading text-2xl lg:text-4xl mb-2">{{ 'customer.account.title' | t }}</h1>
     {%- assign return_url = 'customer.account.return' | t -%}
     {%- render 'link-underline',
       section_color: 'primary',
       text: return_url,
-      link: routes.account_url,
+      link: routes.account_url
     -%}
   </div>
 
@@ -68,7 +68,7 @@
               {% endif %}
 
               {%- if line_item.line_level_discount_allocations != blank -%}
-                <ul class="text-sm lg:text-base mt-1 text-primary-accent mb2"
+                <ul class="text-sm lg:text-base mt-1 text-scheme-accent mb2"
                     aria-label="{{ 'customer.order.discount' | t }}">
                   {%- for discount_allocation in line_item.line_level_discount_allocations -%}
                     <li class="order-discount__item">
@@ -108,12 +108,12 @@
             <div>
               {%- if line_item.original_price != line_item.final_price -%}
                 <del class="cart__price block ">{{ line_item.original_price | money }}</del>
-                <span class="order-discount cart__price text-primary-accent line-height--1 block mb2">{{ line_item.final_price | money }}</span>
+                <span class="order-discount cart__price text-scheme-accent line-height--1 block mb2">{{ line_item.final_price | money }}</span>
               {%- else -%}
                 <span>{{ line_item.original_price | money }}</span>
               {%- endif -%}
               {%- if line_item.unit_price_measurement -%}
-                <div class="text-sm mt-1 {% if line_item.original_price != line_item.final_price %} text-primary-accent{% endif %}">
+                <div class="text-sm mt-1 {% if line_item.original_price != line_item.final_price %} text-scheme-accent{% endif %}">
                   <span class="visually-hidden">
                     {{ 'products.product.unit_price_label' | t }}
                   </span>
@@ -132,7 +132,7 @@
             <div>
               {%- if line_item.original_line_price != line_item.final_line_price -%}
                 <del class="cart__price block ">{{ line_item.original_line_price | money }}</del>
-                <span class="order-discount cart__price text-primary-accent line-height--1 block mb2">{{ line_item.final_line_price | money }}</span>
+                <span class="order-discount cart__price text-scheme-accent line-height--1 block mb2">{{ line_item.final_line_price | money }}</span>
               {%- else -%}
                 <span>{{ line_item.original_line_price | money }}</span>
               {%- endif -%}
@@ -150,10 +150,10 @@
       {%- if order.cart_level_discount_applications != blank -%}
       {% for discount_application in order.cart_level_discount_applications %}
         <tr>
-          <td colspan="4" class="table-small-hide">{{ 'customer.order.discount' | t }}&nbsp;&mdash;&nbsp;<span class="text-primary-accent">{{- discount_application.title -}}</span></td>
+          <td colspan="4" class="table-small-hide">{{ 'customer.order.discount' | t }}&nbsp;&mdash;&nbsp;<span class="text-scheme-accent">{{- discount_application.title -}}</span></td>
           </td>
-          <td class="text-right text-primary-accent align--bottom" data-label="{{ 'customer.order.discount' | t }}">
-            <span><span class="text-xs text-primary-accent md:hidden">{{- discount_application.title -}}</span> -{{ discount_application.total_allocated_amount | money }}</span>
+          <td class="text-right text-scheme-accent align--bottom" data-label="{{ 'customer.order.discount' | t }}">
+            <span><span class="text-xs text-scheme-accent md:hidden">{{- discount_application.title -}}</span> -{{ discount_application.total_allocated_amount | money }}</span>
           </td>
         </tr>
       {% endfor %}

@@ -1,7 +1,7 @@
 {%- if block.settings.text_color == 'text' -%}
-  {% capture color_class %}text-{{ section_color }}-text{% endcapture %}
+  {% capture color_class %}text-scheme-text{% endcapture %}
 {%- else -%}
-  {% capture color_class %}text-{{ section_color }}-meta{% endcapture %}
+  {% capture color_class %}text-scheme-meta{% endcapture %}
 {%- endif -%}
 <div class="mt-8 {{ color_class }}" {{ block.shopify_attributes }}>
   {%- if block.settings.heading != '' -%}

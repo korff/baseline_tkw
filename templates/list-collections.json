@@ -1,1 +1,1 @@
-{"sections":{"main":{"type":"main-list-collections","settings":{}}},"order":["main"]}
+{"sections":{"main":{"type":"main-list-collections","settings":{"show_title":true,"collection_per_row":2,"rows":1,"crop":"1","text_size":"text-2xl","content_position":"justify-end items-end text-right","overlay_text_color":"primary","color_scheme":"tertiary","override_header_footer_color_scheme":false}}},"order":["main"]}

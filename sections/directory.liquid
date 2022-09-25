@@ -24,16 +24,16 @@
   assign desktop_grid_class = 'lg:grid-cols-' | append: grid_cols
 -%}
 
-<section class="directory bg-{{ section_color }}-background text-{{ section_color }}-text  border-t-grid border-grid-color">
+<section class="directory bg-scheme-background text-scheme-text  border-t-grid border-grid-color" data-color-scheme="{{ section_color }}">
   <nav class="grid gap-gutter {{ desktop_grid_class }} bg-border" role="navigation" aria-label="{{ linklists[menu].title }}">
     {% for link in linklists[menu].links %}
-    <div class="{{ col_span }} section-x-padding py-theme bg-{{ section_color }}-background text-{{ section_color }}-text {{ text_align }}">
+    <div class="{{ col_span }} section-x-padding py-theme bg-scheme-background text-scheme-text {{ text_align }}">
       <h2 class="font-heading {{ settings.secondary_heading_size }}"><a href="{{ link.url }}">{{ link.title }}</a></h2>
       {% if link.links != blank %}
         <ul class="mt-4 space-y-1 text-base">
           {% for link in link.links %}
             <li>
-              <a {% if link.active %}aria-current="page"{% endif %} href="{{ link.url }}" class="hover:text-{{ section_color }}-accent">
+              <a {% if link.active %}aria-current="page"{% endif %} href="{{ link.url }}" class="hover:text-scheme-accent">
                 {{ link.title }}
               </a>
             </li>

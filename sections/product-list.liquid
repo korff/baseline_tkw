@@ -9,7 +9,7 @@
   assign view_all_text = 'collections.general.view_all' | t
 -%}
 
-<section class="product-list border-t-grid border-grid-color" x-data="{ current_product: '' }">
+<section class="product-list border-t-grid border-grid-color" x-data="{ current_product: '' }" data-color-scheme="{{ section_color }}">
 
   {%- if section.settings.title != '' -%}
     {%- render 'section-title',
@@ -21,7 +21,7 @@
     -%}
   {%- endif -%}
 
-  <div class="bg-{{ section_color }}-background text-{{ section_color }}-text col-span-full">
+  <div class="bg-scheme-background text-scheme-text col-span-full">
     <ul>
     {%- for product in collection.products limit: section.settings.product_limit -%}
       {%- liquid
@@ -36,7 +36,7 @@
         endif
       -%}
       <li class=" {% unless forloop.first %}border-t-grid border-grid-color{% endunless %}">
-        <a href="{{ product.url | within: collection }}" class="{{ text_size }} group hover:text-{{ section_color }}-accent block {% if sold_out %}text-{{ section_color }}-meta{% endif %}" x-on:mouseenter="current_product = '{{ product.handle }}'" x-on:mouseleave="current_product = ''">
+        <a href="{{ product.url | within: collection }}" class="{{ text_size }} group hover:text-scheme-accent block {% if sold_out %}text-scheme-meta{% endif %}" x-on:mouseenter="current_product = '{{ product.handle }}'" x-on:mouseleave="current_product = ''">
           <div class="flex justify-between items-stretch w-full">
             {%- if product.featured_image != blank and product_image_display == 'show' -%}
               <div class="relative  {% if settings.fill_image_to_border_edge %}w-16 border-r-grid border-grid-color{% else %}w-16 {% if text_size contains 'xl' %}lg:w-24{% endif %} pl-2 py-2 lg:pl-4{% endif %}">
@@ -75,9 +75,9 @@
                   {% if on_sale %}
                     {% if product.price_varies %}
                       {%- assign sale_price = product.price | money -%}
-                      <span class="text-{{ section_color }}-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</span>
+                      <span class="text-scheme-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</span>
                     {% else %}
-                      <span class="text-{{ section_color }}-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>{{ product.price | money }}</span>
+                      <span class="text-scheme-accent"><span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>{{ product.price | money }}</span>
                     {% endif %}
                   {% else %}
                     {% if product.price_varies %}
@@ -96,7 +96,7 @@
     {%- else -%}
       {%- for i in (1..6) -%}
         <li class=" {% unless forloop.first %}border-t-grid border-grid-color{% endunless %}">
-          <a href="{{ product.url | within: collection }}" class="{{ text_size }} group hover:text-{{ section_color }}-accent block {% if sold_out %}text-{{ section_color }}-meta{% endif %}" x-on:mouseenter="current_product = '{{ product.handle }}'" x-on:mouseleave="current_product = ''">
+          <a href="{{ product.url | within: collection }}" class="{{ text_size }} group hover:text-scheme-accent block {% if sold_out %}text-scheme-meta{% endif %}" x-on:mouseenter="current_product = '{{ product.handle }}'" x-on:mouseleave="current_product = ''">
             <div class="flex justify-between items-stretch w-full">
               {%- if product_image_display == 'show' -%}
                 <div class="relative  {% if settings.fill_image_to_border_edge %}w-16 border-r-grid border-grid-color{% else %}w-16 {% if text_size contains 'xl' %}lg:w-24{% endif %} pl-2 py-2{% endif %}">

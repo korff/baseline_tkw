@@ -23,17 +23,17 @@
   <div class="{% unless settings.fill_image_to_border_edge %}p-2 lg:p-4{% endunless %}">
     <div class="background-video-wrapper h-auto bg-black p-0  relative overflow-hidden {{ size_classes }} {% unless settings.fill_image_to_border_edge %}not_full_bleed{% endunless %}">
       {% assign component_id = 'background-video-' | append: section.id %}
-      {% render 'background-video'
+      {% render 'background-video',
         extra_classes: 'video-with-text-overlay__background-video',
         video: section.settings.video_url,
         fallback_image: section.settings.fallback_image,
-        component_id: component_id,
+        component_id: component_id
     %}
     </div>
-    <div class="{{ content_width_desktop }} text-{{ text_color }}-text">
+    <div class="{{ content_width_desktop }} text-scheme-text" data-color-scheme="{{ text_color }}">
       <div class="absolute top-0 left-0 right-0 bottom-0 z-10 section-x-padding py-theme">
         <div class="flex {{ content_position }} {{ text_align }} {% unless settings.fill_image_to_border_edge %}p-2 lg:p-4{% endunless %} h-full w-full">
-          <div class="{{ content_width_desktop }} text-{{ text_color }}-text overflow-hidden">
+          <div class="{{ content_width_desktop }} text-scheme-text overflow-hidden">
             {% if section.settings.title != blank %}
               <h2 class="font-heading {{ heading_size_class }} break-words">{{ section.settings.title }}</h2>
             {% endif %}
@@ -51,7 +51,7 @@
                 {%- render 'link-underline',
                   section_color: text_color,
                   text: section.settings.cta_text,
-                  link: section.settings.cta_link,
+                  link: section.settings.cta_link
                 -%}
               {%- when 'button' -%}
                 <a href="{{ section.settings.cta_link }}" class="inline-flex justify-center items-center text-base px-8 py-2 {% render 'button-style', section_color: text_color %}  {% render 'button-color', section_color: text_color %} ">
@@ -73,6 +73,10 @@
   "name": "Video with text overlay",
   "class": "has-full-screen-setting",
   "settings": [
+    {
+      "type": "paragraph",
+      "content": "When low power mode is enabled on Apple iOS devices, the Safari browser won’t play the video. [Learn how to set up this section](https://help.switchthemes.co/baseline/sections/content/video-with-text-overlay.html)"
+    },
     {
       "id": "video_url",
       "type": "text",

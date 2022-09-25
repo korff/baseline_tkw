@@ -2,7 +2,7 @@
   assign section_color = section.settings.color_scheme
   assign heading_size_class = section.settings.heading_size
 -%}
-<section class="relative bg-{{ section_color }}-background text-{{ section_color }}-text {% if settings.fill_image_to_border_edge %}pb-theme{% else %}pb-theme{% endif %}" data-section-type="slideshow" data-section-id="{{ section.id }}" data-slide-speed="{{ section.settings.slide_speed }}" {% if section.settings.auto_rotate %}data-auto-rotate="true"{% endif %}>
+<section class="relative bg-scheme-background text-scheme-text {% if settings.fill_image_to_border_edge %}pb-theme{% else %}pb-theme{% endif %}" data-section-type="slideshow" data-section-id="{{ section.id }}" data-slide-speed="{{ section.settings.slide_speed }}" {% if section.settings.auto_rotate %}data-auto-rotate="true"{% endif %} data-color-scheme="{{ section_color }}">
   <div class="splide" data-splide='{"autoplay":{{ section.settings.auto_rotate }}, "interval": {{ section.settings.slide_speed }} }'>
     <button class="splide__autoplay-control absolute top-0 left-0 z-10 p-2 opacity-0 transition-opacity"
             aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
@@ -58,7 +58,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="js-enabled splide__arrows text-{{ section_color }}-text mr-1 lg:mr-4 text-right {% if settings.fill_image_to_border_edge %}mt-2{% endif %}">
+    <div class="js-enabled splide__arrows text-scheme-text mr-1 lg:mr-4 text-right {% if settings.fill_image_to_border_edge %}mt-2{% endif %}">
       <button class="splide__arrow splide__arrow--prev w-8">
         <span class="visually-hidden">{{ 'sections.slideshow.previous_slide' | t }}</span>
         <span class="block">

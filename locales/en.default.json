@@ -77,7 +77,11 @@
       "clear_search_term": "Clear search term",
       "number_of_results": "{{ result_number }} of {{ results_count }}",
       "number_of_results_found": "{{ results_count }} results found",
-      "one_result_found": "1 result found"
+      "one_result_found": "1 result found",
+      "results_count": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      }
     },
     "newsletter_form": {
       "newsletter_email": "Subscribe to our mailing list",

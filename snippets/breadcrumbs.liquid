@@ -1,8 +1,8 @@
 
 {%- assign text_align = settings.breadcrumb_text_alignment %}
 {%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
-<section class="featured-navigation bg-{{ section_color }}-background text-{{ section_color }}-text border-b-grid border-grid-color relative">
-  <div class="bg-gradient-to-r from-{{ section_color }}-background-0 via-{{ section_color }}-background to-{{ section_color }}-background w-8 absolute top-0 right-0 bottom-0 lg:hidden pointer-events-none"></div>
+<section class="featured-navigation bg-scheme-background text-scheme-text border-b-grid border-grid-color relative" data-color-scheme="{{ section_color }}">
+  <div class="bg-gradient-to-r from-scheme-background-0 via-scheme-background to-scheme-background w-8 absolute top-0 right-0 bottom-0 lg:hidden pointer-events-none"></div>
   <div class="section-x-padding py-theme-half overflow-x-auto">
     {% capture separator %}
     {%- if settings.breadcrumb_separator == 'slash' -%}/{%- endif -%}

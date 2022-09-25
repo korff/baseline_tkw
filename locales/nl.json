@@ -77,6 +77,10 @@
       "results_with_count": {
         "one": "{{ count }} resultaat voor '{{ terms }}'",
         "other": "{{ count }} resultaten voor '{{ terms }}'"
+      },
+      "results_count": {
+        "one": "{{ count }} resultaat",
+        "other": "{{ count }} resultaten"
       }
     },
     "newsletter_form": {
@@ -417,7 +421,7 @@
       "availability": "Beschikbaarheid",
       "from_lowest_price_html": "van {{ lowest_price }}",
       "on_sale_from_html": "In sale van {{ price }}",
-      "add_to_cart_confirm_html": "<a data-after-add-cart-trigger class=\"underline link-underline link-underline-{{ section_color }}-accent hover:text-{{ section_color }}-accent pointer \" href=\"{{ cart_url }} \">Bekijk winkelwagen</a> of <a href =\"{{link_url}}\"> verder winkelen </a>",
+      "add_to_cart_confirm_html": "<a data-after-add-cart-trigger class=\"underline link-underline link-underline-scheme-accent hover:text-scheme-accent pointer \" href=\"{{ cart_url }} \" data-color-scheme=\"{{ section_color }}\">Bekijk winkelwagen</a> of <a href =\"{{link_url}}\"> verder winkelen </a>",
       "view_in_space": "Bekijk in je ruimte",
       "view_in_space_label": "Bekijk in je ruimte, laadt artikel in augmented reality-venster",
       "read_more": "Meer lezen"

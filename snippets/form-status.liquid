@@ -10,7 +10,7 @@
 {% endcomment %}
 
   {%- if form.posted_successfully? -%}
-  <p class="form-message text-{{ section_color }}-accent py-4"
+  <p class="form-message text-scheme-accent py-4"
      tabindex="-1"
      data-form-status>
     {{ success_message | default: 'contact.form.post_success' | t }}
@@ -21,7 +21,7 @@
   {% assign error_order = "author, email, body, password, form" | split: ", " %}
   
   {%- if form.errors -%}
-  <div class="form__errors text-{{ section_color }}-accent py-4">
+  <div class="form__errors text-scheme-accent py-4">
     {%- if form.errors.translated_fields.size == 1 and form.errors.first == 'form' -%}
       <p class="form-message" tabindex="-1" data-form-status>
         {{ form.errors.messages['form'] }}
@@ -32,7 +32,7 @@
         {{ 'contact.form.error_heading' | t }}
       </h2>
   
-      <ul class="space-y-1 mt-2 text-{{ section_color }}-accent">
+      <ul class="space-y-1 mt-2 text-scheme-accent">
         {% for error in error_order %}
           {% for field in form.errors %}
             {% if error == field %}

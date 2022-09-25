@@ -77,6 +77,10 @@
       "results_with_count": {
         "one": "{{ count }} resultado para “{{ terms }}”",
         "other": "{{ count }} resultados para “{{ terms }}”"
+      },
+      "results_count": {
+        "one": "{{ count }} resultado",
+        "other": "{{ count }} resultados"
       }
     },
     "newsletter_form": {

@@ -25,10 +25,10 @@
   <ul class="grid grid-cols-1 lg:grid-cols-12 gap-theme">
     {% for block in section.blocks %}
       {%- assign block_color = block.settings.color_scheme -%}
-      <li class="{{ col_span }} bg-{{ block_color }}-background text-{{ block_color }}-text text-base {{ text_align }} " {{ block.shopify_attributes }}>
+      <li class="{{ col_span }} bg-scheme-background text-scheme-text text-base {{ text_align }} " {{ block.shopify_attributes }} data-color-scheme="{{ block_color }}">
         {%- if block.settings.show_image -%}
           {%- if block.settings.image != blank -%}
-          <div class="bg-{{ block_color }}-background {% unless settings.fill_image_to_border_edge %}pt-2 px-2 lg:pt-4 lg:px-4{% else %}border-b-grid border-grid-color{% endunless %}">
+          <div class="bg-scheme-background {% unless settings.fill_image_to_border_edge %}pt-2 px-2 lg:pt-4 lg:px-4{% else %}border-b-grid border-grid-color{% endunless %}">
             <div class="relative">
               {%- assign image = block.settings.image -%}
               {% render 'image-crop' with
@@ -38,7 +38,7 @@
             </div>
           </div>
           {%- else -%}
-          <div class="bg-{{ block_color }}-background {% unless settings.fill_image_to_border_edge %}pt-2 px-2 lg:pt-4 lg:px-4{% else %}border-b-grid border-grid-color{% endunless %}">
+          <div class="bg-scheme-background {% unless settings.fill_image_to_border_edge %}pt-2 px-2 lg:pt-4 lg:px-4{% else %}border-b-grid border-grid-color{% endunless %}">
             <div class="relative h-full w-full">
               {%- if section.settings.crop == '0' -%}
                 <div class="gallery-placeholder  bg-placeholder-bg ">
@@ -73,7 +73,7 @@
           {% if block.settings.cta_link %}
           <div class="mt-4">
             {%- render 'link-underline',
-              section_color: section_color,
+              section_color: block_color,
               text: block.settings.cta_text,
               link: block.settings.cta_link
             -%}

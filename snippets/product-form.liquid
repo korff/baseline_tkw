@@ -26,9 +26,9 @@
         endfor
       -%}
       {%- if use_collection_vendor_link -%}
-      <p {{ block.shopify_attributes }} class="relative z-10 product-vendor-block"><a class="text-base mt-4 text-{{ section_color }}-meta" href="{{ vendor_collection.url }}">{{ vendor_collection.title }}</a></p>
+      <p {{ block.shopify_attributes }} class="relative z-10 product-vendor-block"><a class="text-base mt-4 text-scheme-meta" href="{{ vendor_collection.url }}">{{ vendor_collection.title }}</a></p>
       {%- else -%}
-      <p {{ block.shopify_attributes }} class="relative z-10 product-vendor-block text-base mt-4 text-{{ section_color }}-meta">{{ product.vendor | link_to_vendor }}</p>
+      <p {{ block.shopify_attributes }} class="relative z-10 product-vendor-block text-base mt-4 text-scheme-meta">{{ product.vendor | link_to_vendor }}</p>
       {%- endif -%}
     {%- when 'price' -%}
       {%- liquid
@@ -40,7 +40,7 @@
       -%}
       <div {{ block.shopify_attributes }} data-price-wrapper class="product-price-block mt-8 {{ price_text_size }}" :class="{ 'invisible': !current_variant }">
         <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-        <span data-product-price x-html="formatMoney(current_price)" :class="{ 'text-{{ section_color }}-accent': current_variant && product.compare_at_price_max && current_variant.compare_at_price > current_variant.price, 'invisible': !current_variant }">
+        <span data-product-price x-html="formatMoney(current_price)" :class="{ 'text-scheme-accent': current_variant && product.compare_at_price_max && current_variant.compare_at_price > current_variant.price, 'invisible': !current_variant }">
           {{ current_variant.price | money }}
         </span>
 
@@ -127,12 +127,12 @@
                     {% endif %}
                     <div class="block relative variant-input">
                       <input class="custom-input cursor-pointer absolute top-0 left-0 w-full h-full opacity-0" @change="optionChange()" type="radio" id="Option{{ option.position }}-{{ value | escape }}" name="options[{{ option.name }}]" value="{{ value | escape }}" data-handle="{{ value | handleize }}" {% if option.selected_value == value %} checked{% endif %} data-single-option-selector>
-                      <label class="flex items-center py-1  {% unless variant_label_state %}text-{{ section_color }}-meta line-through{% else %}cursor-pointer{% endunless %}" for="Option{{ option.position }}-{{ value | escape }}">
+                      <label class="flex items-center py-1  {% unless variant_label_state %}text-scheme-meta line-through{% else %}cursor-pointer{% endunless %}" for="Option{{ option.position }}-{{ value | escape }}">
                         <template x-if="optionHandles[{{ option_array_index }}] === '{{ value | handleize }}'">
-                          <span class="w-2 h-2 mr-1 inline-block rounded-full bg-{{ section_color }}-text border-checkbox border-{{ section_color }}-text"></span>
+                          <span class="w-2 h-2 mr-1 inline-block rounded-full bg-scheme-text border-checkbox border-scheme-text"></span>
                         </template>
                         <template x-if="optionHandles[{{ option_array_index }}] !== '{{ value | handleize }}'">
-                          <span class="w-2 h-2 mr-1 inline-block rounded-full bg-transparent border-checkbox border-{{ section_color }}-text"></span>
+                          <span class="w-2 h-2 mr-1 inline-block rounded-full bg-transparent border-checkbox border-scheme-text"></span>
                         </template>
                         <span>{{ value }}</span>
                       </label>
@@ -150,8 +150,8 @@
                     {% endif %}
                     <div class="relative variant-input">
                       <input class="custom-input cursor-pointer absolute top-0 left-0 w-full h-full opacity-0" @change="optionChange()" type="radio" id="Option{{ option.position }}-{{ value | escape }}" name="options[{{ option.name }}]" value="{{ value | escape }}" data-handle="{{ value | handleize }}" {% if option.selected_value == value %} checked{% endif %} data-single-option-selector>
-                      <label class="block p-1 {% unless variant_label_state %}text-{{ section_color }}-meta line-through{% else %}cursor-pointer{% endunless %}" for="Option{{ option.position }}-{{ value | escape }}">
-                        <span :class="{ 'border-b-text border-{{ section_color }}-text': optionHandles[{{ option_array_index }}] === '{{ value | handleize }}' }">{{ value }}</span>
+                      <label class="block p-1 {% unless variant_label_state %}text-scheme-meta line-through{% else %}cursor-pointer{% endunless %}" for="Option{{ option.position }}-{{ value | escape }}">
+                        <span :class="{ 'border-b-text border-scheme-text': optionHandles[{{ option_array_index }}] === '{{ value | handleize }}' }">{{ value }}</span>
                       </label>
                     </div>
                   {% endfor %}
@@ -172,13 +172,13 @@
                     <div class="relative variant-input px-1">
                       <input class="custom-input cursor-pointer absolute top-0 left-0 w-full h-full opacity-0" @change="optionChange()" type="radio" id="Section-{{ section.id }}-Option{{ option.position }}-{{ value | escape }}" name="options[{{ option.name }}]" value="{{ value | escape }}" data-handle="{{ value | handleize }}" {% if option.selected_value == value %} checked{% endif %} data-single-option-selector>
                       <label
-                        :class="{ 'border-{{ section_color }}-text': optionHandles[{{ option_array_index }}] === '{{ value | handleize }}', 'border-transparent': optionHandles[{{ option_array_index }}] !== '{{ value | handleize }}' }"
+                        :class="{ 'border-scheme-text': optionHandles[{{ option_array_index }}] === '{{ value | handleize }}', 'border-transparent': optionHandles[{{ option_array_index }}] !== '{{ value | handleize }}' }"
                         class="relative block {% unless is_color %}p-2 min-w-4{% else %}p-0.5{% endunless %} {% render 'button-style', section_color: section_color %} border-text text-center cursor-pointer  {% unless variant_label_state %}line-through{% endunless %} {% if is_color %}cursor-pointer{% endif %}" for="Section-{{ section.id }}-Option{{ option.position }}-{{ value | escape }}"
                         title="{{ option.value }}"
                         >
                         {%- if is_color %}
                         {%- unless variant_label_state -%}
-                          <span class="absolute top-0 left-0 bottom-0 z-10 h-0.5 w-full bg-{{ section_color }}-text transform top-1/2 -translate-y-1/2 -rotate-45"></span>
+                          <span class="absolute top-0 left-0 bottom-0 z-10 h-0.5 w-full bg-scheme-text transform top-1/2 -translate-y-1/2 -rotate-45"></span>
                         {%- endunless -%}
                         <span class="block w-10 h-10 {% render 'button-style', section_color: section_color %}" style="background-image: url({{ color_image }}); background-color: {{ color_swatch_fallback }};"></span>
                         {%- endif -%}
@@ -192,7 +192,7 @@
                   id="Option{{ option.position }}"
                   @change="optionChange()"
                   name="options[{{ option.name | escape }}]"
-                  class="mt-2  appearance-none rounded-none bg-{{ section_color }}-background text-{{ section_color }}-text border-b-text py-1 border-{{ section_color }}-text text-{{ section_color }}-text pr-6"
+                  class="mt-2  appearance-none rounded-none bg-scheme-background text-scheme-text border-b-text py-1 border-scheme-text text-scheme-text pr-6"
                   data-single-option-selector>
                   {% for value in option.values %}
                     <option
@@ -214,7 +214,7 @@
         <div class="mt-2 flex items-center -mx-2">
           <button type="button" class="fill-current p-2 w-7 h-7" @click="if(quantity>0){quantity--}"
                 aria-label="'{ 'general.accessibility.decrement_one' | t }}">{% render 'icon-minus' %}</button>
-          <input form="{{ product_form_id }}" class="appearance-none bg-transparent w-10 text-center border-b-text border-{{ section_color }}-text p-2" type="number" id="Quantity" name="quantity" value="1" min="1" x-model="quantity" >
+          <input form="{{ product_form_id }}" class="appearance-none bg-transparent w-10 text-center border-b-text border-scheme-text p-2" type="number" id="Quantity" name="quantity" value="1" min="1" x-model="quantity" >
           <button type="button" class="fill-current p-2 w-7 h-7"  @click="quantity++"
                 aria-label="{{ 'general.accessibility.increment_one' | t }}">{% render 'icon-plus' %}</button>
         </div>
@@ -225,7 +225,7 @@
 
         <div class="no-js hidden">
           <label class="block mt-theme" for="variant_{{ section.id }}">Variant</label>
-          <select x-ref="singleVariantSelector" name="id" id="variant_{{ section.id }}" class="mt-2 appearance-none rounded-none bg-{{ section_color }}-background text-{{ section_color }}-text border-b-grid py-1 border-{{ section_color }}-text text-{{ section_color }}-text pr-6">
+          <select x-ref="singleVariantSelector" name="id" id="variant_{{ section.id }}" class="mt-2 appearance-none rounded-none bg-scheme-background text-scheme-text border-b-grid py-1 border-scheme-text text-scheme-text pr-6">
             {% for variant in product.variants %}
               <option
                 {% if variant == current_variant %}selected="selected"{% endif %}
@@ -249,13 +249,13 @@
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0">
             <p>{{ 'cart.popup.added_to_cart' | t }}!</p>
-            <p class="accent-links-{{ section_color }}">{{ 'products.product.add_to_cart_confirm_html' | t: cart_url: routes.cart_url, link_url: routes.all_products_collection_url }}.</p>
+            <p class="accent-links-scheme">{{ 'products.product.add_to_cart_confirm_html' | t: cart_url: routes.cart_url, link_url: routes.all_products_collection_url }}.</p>
           </div>
         {%- endif -%}
 
         <div class="add-to-cart-container mt-8 lg:w-3/4">
           {%- if block.settings.enable_payment_button -%}
-            {%- capture cta_button_class -%}{% render 'button-style' %} bg-transparent text-{{ section_color }}-text border-text border-{{ section_color }}-text hover:border-{{ section_color }}-accent hover:text-{{ section_color }}-accent{%- endcapture -%}
+            {%- capture cta_button_class -%}{% render 'button-style' %} bg-transparent text-scheme-text border-text border-scheme-text hover:border-scheme-accent hover:text-scheme-accent{%- endcapture -%}
           {%- else -%}
             {%- capture cta_button_class -%}{% render 'button-style' %} {% render 'button-color', section_color: section_color %}{%- endcapture -%}
           {%- endif -%}
@@ -296,13 +296,13 @@
             {%- if button_color == 'transparent_background_text_border' -%}
               {%- assign button_color = 'text_background' -%}
             {%- endif -%}
-            <div class="mt-2 payment-button-wrapper {% render 'button-style' %}  color-{{ section_color }} style-{{ button_color }}">{{ form | payment_button }}</div>
+            <div class="mt-2 payment-button-wrapper {% render 'button-style' %}  color-scheme style-{{ button_color }}">{{ form | payment_button }}</div>
           {%- endif -%}
 
         </div>
       {% endform %}
       {% if block.settings.show_pickup_availability %}
-        <template x-if="$store.availability.current_variant.available && currentVariantAvailability">
+        <template x-if="currentVariantAvailability && currentVariantAvailable && $store.availability.current_variant.available">
           <div class="mt-4 lg:w-3/4 flex items-start" :class="{'opacity-50': $store.availability.loading}" :aria-busy="$store.availability.loading">
             <div class="w-3 mr-3 pt-1">
               <template x-if="currentVariantAvailability.available">
@@ -315,7 +315,7 @@
             <div class="flex-auto">
               <h2 x-html="currentVariantAvailability.pickup_text"></h2>
               <small class="block mt-2" x-html="currentVariantAvailability.pickup_time"></small>
-              <button type="button" @click="$store.drawer.availabilityOpener = $event.currentTarget; $store.drawer.availabilityDrawerOpen = !$store.drawer.availabilityDrawerOpen" aria-haspopup="dialog" class="mt-2 hover:text-{{ section_color }}-accent text-sm items-center justify-center {% if settings.links_show_underline %}border-b-text border-{{ section_color }}-text hover:border-{{ section_color }}-accent pb-1{% endif %}">
+              <button type="button" @click="$store.drawer.availabilityOpener = $event.currentTarget; $store.drawer.availabilityDrawerOpen = !$store.drawer.availabilityDrawerOpen" aria-haspopup="dialog" class="mt-2 hover:text-scheme-accent text-sm items-center justify-center {% if settings.links_show_underline %}border-b-text border-scheme-text hover:border-scheme-accent pb-1{% endif %}">
                 <span class="{% if settings.links_uppercase %}uppercase{% endif %}" x-text="currentVariantAvailability.modal_text"></span>
                 {% if settings.links_show_arrow %}&nbsp;&rarr;{% endif %}
               </button>
@@ -336,7 +336,7 @@
         assign truncate_description = block.settings.truncate_description
       -%}
       {% render 'product-block-description',
-        enable_collapsible_tabs: enable_collapsible_tabs
+        enable_collapsible_tabs: enable_collapsible_tabs,
         truncate_description: truncate_description,
         section_color: section_color
       %}
@@ -352,12 +352,12 @@
       {%- assign tab_counter = tab_counter | plus: 1 -%}
     {%- when 'icon_list' -%}
       {% render 'product-block-icon-list',
-        block: block
+        block: block,
         section_color: section_color
       %}
     {%- when 'popup' -%}
       {% render 'product-block-popup',
-        block: block
+        block: block,
         section_color: section_color
       %}
     {%- when 'share_buttons' -%}

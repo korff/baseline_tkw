@@ -1,8 +1,8 @@
-<div class="relative flex justify-between items-center py-theme-half section-x-padding border-b-grid border-grid-color">
+<div class="relative flex justify-between items-center py-theme-half section-x-padding border-b-grid border-grid-color" data-color-scheme="{{ section_color }}">
   <form id="CollectionFiltersForm"  class="md:flex flex-wrap" @submit.prevent="filterFormSubmit">
 
     <div class="mt-theme mr-16">
-      <a href="{{ collection.url }}" class="hover:text-{{ section_color }}-accent">{{ 'collections.filters.clear' | t }}</a>
+      <a href="{{ collection.url }}" class="hover:text-scheme-accent">{{ 'collections.filters.clear' | t }}</a>
       {% comment %}
         {%- for filter in collection.filters -%}
           {% if filter.type == "price_range"  %}
@@ -35,7 +35,7 @@
         {%- when 'list' -%}
         <ul class="mt-2 space-y-1">
           {%- for filter_value in filter.values -%}
-            <li class="flex justify-start items-center"">
+            <li class="flex justify-start items-center">
               <input type="checkbox"
                 class="visually-hidden filter-checkbox"
                 name="{{ filter_value.param_name }}"
@@ -45,7 +45,7 @@
                 {% if filter_value.active -%}checked{%- endif %}
                 {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
               >
-              <label for="Filter-{{ filter.label }}-{{ forloop.index }}" class="cursor-pointer capitalize flex items-center hover:text-{{ section_color }}-accent {% if filter_value.count == 0 and filter_value.active == false -%}text-{{ section_color }}-meta line-through{%- endif %}" {% if filter_value.count == 0 and filter_value.active == false -%}disabled{% endif %}>
+              <label for="Filter-{{ filter.label }}-{{ forloop.index }}" class="cursor-pointer capitalize flex items-center hover:text-scheme-accent {% if filter_value.count == 0 and filter_value.active == false -%}text-scheme-meta line-through{%- endif %}" {% if filter_value.count == 0 and filter_value.active == false -%}disabled{% endif %}>
                 <span class="w-2 h-2 mr-1 inline-block rounded-full border-checkbox border-current"></span>
                 {{ filter_value.label }}
               </label>

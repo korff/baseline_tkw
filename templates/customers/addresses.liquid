@@ -1,13 +1,13 @@
 {% paginate customer.addresses by 5 %}
 
-  <div class="section-x-padding py-theme max-w-xl mx-auto">
+  <div class="section-x-padding py-theme max-w-xl mx-auto" data-color-scheme="primary">
     <div class="mb-8 text-center">
       <h1 class="font-heading text-2xl lg:text-4xl mb-2">{{ 'customer.account.title' | t }}</h1>
       {%- assign return_url = 'customer.account.return' | t -%}
       {%- render 'link-underline',
         section_color: 'primary',
         text: return_url,
-        link: routes.account_url,
+        link: routes.account_url
       -%}
     </div>
 
@@ -18,7 +18,7 @@
         {% form 'customer_address', customer.new_address %}
           <h2 class="font-heading text-lg mb-2">{{ 'customer.addresses.add_new' | t }}</h2>
 
-          <div class="text-primary-accent">
+          <div class="text-scheme-accent">
           {% if form.errors %}
               {{ form.errors | default_errors }}
           {% endif %}
@@ -95,7 +95,7 @@
               <label class="mt-4 block" for="AddressCountryNew">
                 {{ 'customer.addresses.country' | t }}
               </label>
-              <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-primary-text"
+              <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-scheme-text"
                 name="address[country]"
                 id="AddressCountryNew"
                 autocomplete="country"
@@ -108,7 +108,7 @@
               <label class="mt-4 block" for="AddressProvinceNew">
                 {{ 'customer.addresses.province' | t }}
               </label>
-              <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-primary-text"
+              <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-scheme-text"
                 name="address[province]"
                 id="AddressProvinceNew"
                 autocomplete="address-level1"
@@ -259,7 +259,7 @@
               <label class="mt-4 block" for="AddressCountry_{{ form.id }}">
                 {{ 'customer.addresses.country' | t }}
               </label>
-              <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-primary-text address-country-option"
+              <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-scheme-text address-country-option"
                 name="address[country]"
                 id="AddressCountry_{{ form.id }}"
                 data-form-id="{{ form.id }}"
@@ -272,7 +272,7 @@
                 <label class="mt-4 block" for="AddressProvince_{{ form.id }}">
                   {{ 'customer.addresses.province' | t }}
                 </label>
-                <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-primary-text"
+                <select class="appearance-none w-full py-1 bg-transparent border-b-text border-current text-scheme-text"
                   name="address[province]"
                   id="AddressProvince_{{ form.id }}"
                   autocomplete="address-level1"
@@ -408,5 +408,8 @@
       });
     });
   }
-  customerAddressForm();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    customerAddressForm();
+  });
 </script>

@@ -35,8 +35,8 @@
 -%}
 {% comment %}theme-check-enable DeprecateLazysizes,ImgWidthAndHeight{% endcomment %}
 
-<section class="navigation-with-image grid grid-cols-1 lg:grid-cols-12 grid-flow-row-dense bg-border gap-gutter  border-t-grid border-grid-color overflow-x-hidden" x-data="{ current_link: '' }">
-  <div class="bg-{{ section_color }}-background {{ image_width_desktop }} {% unless settings.fill_image_to_border_edge %}p-2 lg:p-4 h-full w-full{% endunless %} {% if indent_image %}p-8 lg:p-16{% endif %}">
+<section class="navigation-with-image grid grid-cols-1 lg:grid-cols-12 grid-flow-row-dense bg-border gap-gutter  border-t-grid border-grid-color overflow-x-hidden" x-data="{ current_link: '' }" data-color-scheme="{{ section_color }}">
+  <div class="bg-scheme-background {{ image_width_desktop }} {% unless settings.fill_image_to_border_edge %}p-2 lg:p-4 h-full w-full{% endunless %} {% if indent_image %}p-8 lg:p-16{% endif %}">
     <div class="relative min-h-full">
       {%- if section.settings.image != blank -%}
         {%- assign image = section.settings.image -%}
@@ -59,7 +59,7 @@
       {%- endif -%}
 
       <div class="hover-images-container">
-      <div x-show.transition.opacity.duration.200ms="current_link !== ''" class="bg-{{ section_color }}-background absolute top-0 right-0 bottom-0 left-0"></div>
+      <div x-show.transition.opacity.duration.200ms="current_link !== ''" class="bg-scheme-background absolute top-0 right-0 bottom-0 left-0"></div>
       {%- for block in section.blocks -%}
         {%- liquid
           assign image = block.settings.image 
@@ -84,7 +84,7 @@
     </div>
   </div>
 
-  <div class="{{ text_width_desktop }} bg-{{ section_color }}-background text-{{ section_color }}-text relative section-x-padding py-theme flex {{ text_position }}">
+  <div class="{{ text_width_desktop }} bg-scheme-background text-scheme-text relative section-x-padding py-theme flex {{ text_position }}">
     <nav role="navigation" class="{{ text_size_mobile }} {{ text_size_desktop }} {{ text_align }} w-full">
       <ul class="font-heading inline-block max-w-full break-words">
         {%- for block in section.blocks -%}
@@ -100,7 +100,7 @@
           {%- endif -%}
           <li {{ block.shopify_attributes }}>
             <div class=" inline-block relative max-w-full">
-              <a href="{{ link }}" class="font-heading  hover:text-{{ section_color }}-accent break-words" x-on:mouseenter="current_link = '{% if image != blank %}{{ block.id | handleize }}{% else %}''{% endif %}'" x-on:mouseleave="setTimeout(() => { if(current_link == '{{ block.id | handleize }}') {current_link = ''}  }, 200)">
+              <a href="{{ link }}" class="font-heading  hover:text-scheme-accent break-words" x-on:mouseenter="current_link = '{% if image != blank %}{{ block.id | handleize }}{% else %}''{% endif %}'" x-on:mouseleave="setTimeout(() => { if(current_link == '{{ block.id | handleize }}') {current_link = ''}  }, 200)">
               {% if superscript == 'index' %}{{ superscript_content }}{%- endif -%}<span class="hover:underline">{{ text }}</span>
               </a>
             </div>

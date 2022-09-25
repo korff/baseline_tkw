@@ -13,7 +13,7 @@ Displays a cropped image if a ratio is passed, or an uncropped one if crop == 'n
       data-bgset="{% render 'responsive-bg-image', image: image %}"
       data-sizes="auto"
       data-parent-fit="cover"
-      style="background-image: url('{{ image | img_url: '300x300' }});">
+      style="background-image: url('{{ image | img_url: '300x300' }}');">
     </div>
   </div>
 {%- endif -%}

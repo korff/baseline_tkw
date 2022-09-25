@@ -13694,11 +13694,16 @@ register('header', {
       document.documentElement.style.setProperty('--sticky-header-height', "".concat(this.container.clientHeight, "px"));
     }
 
+    var overlayHeaderWithSticky = this.container.dataset.overlayHeaderWithSticky === 'true';
+    var overlayTextColor = this.container.dataset.overlayTextColor;
+
     window[functionName] = function () {
       return {
         menuOpen: menuOpen,
         searchOpen: false,
         headerIsStuck: false,
+        overlayHeaderWithSticky: overlayHeaderWithSticky,
+        overlayTextColor: overlayTextColor,
         mounted: function mounted() {
           var _this = this;
 
@@ -13724,6 +13729,11 @@ register('header', {
             });
             observer.observe(el);
           }
+
+          this.updateHeaderColorScheme(this.headerIsStuck);
+          this.$watch('headerIsStuck', function (value) {
+            _this.updateHeaderColorScheme(value);
+          });
         },
         openMenu: function openMenu(index) {
           for (var _i2 = 0; _i2 < dropdownCount; _i2++) {
@@ -13733,12 +13743,16 @@ register('header', {
           this.menuOpen['menu' + index] = true;
         },
         openSearch: function openSearch() {
-          var _this2 = this;
+          if (!this.searchOpen) {
+            var searchInput = this.$el.querySelector('[data-search-input]');
+            this.searchOpen = true;
 
-          this.searchOpen = true;
-          setTimeout(function () {
-            _this2.$refs.searchInput.focus();
-          }, 100);
+            if (searchInput) {
+              setTimeout(function () {
+                searchInput.focus();
+              }, 100);
+            }
+          }
         },
         focusOut: function focusOut(event, menu) {
           if (event.relatedTarget) {
@@ -13756,6 +13770,21 @@ register('header', {
             if (!searchParent) {
               this.searchOpen = false;
             }
+          }
+        },
+        updateHeaderColorScheme: function updateHeaderColorScheme(headerIsStuck) {
+          if (!this.overlayHeaderWithSticky || !this.$refs.header) {
+            return;
+          }
+
+          if (headerIsStuck) {
+            this.$refs.header.setAttribute('data-color-scheme', 'header');
+            this.$refs.header.classList.remove('bg-transparent');
+            this.$refs.header.classList.add('bg-scheme-background');
+          } else {
+            this.$refs.header.setAttribute('data-color-scheme', overlayTextColor);
+            this.$refs.header.classList.remove('bg-scheme-background');
+            this.$refs.header.classList.add('bg-transparent');
           }
         }
       };
@@ -15095,8 +15124,14 @@ var ProductModel = function () {
     removeSectionModels: removeSectionModels
   };
 }();
+// EXTERNAL MODULE: ./node_modules/lodash/debounce.js
+var debounce = __webpack_require__(1);
+var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce);
+
 // CONCATENATED MODULE: ./node_modules/@switchthemes/store-availability/index.js
-const StoreAvailability = (function () {
+
+
+const store_availability_StoreAvailability = (function () {
   /**
    * @constructor
    * StoreAvailability constructor
@@ -15105,9 +15140,13 @@ const StoreAvailability = (function () {
    */
   function StoreAvailability(container) {
     this.container = container;
-    window.Spruce.store(
-      'availability',
-    ).product_title = this.container.dataset.productTitle;
+    this.fetchContent = debounce_default()(this.__fetchContent.bind(this), 500, {
+      leading: true,
+      trailing: true,
+    });
+
+    window.Spruce.store("availability").product_title =
+      this.container.dataset.productTitle;
   }
 
   StoreAvailability.prototype = Object.assign({}, StoreAvailability.prototype, {
@@ -15120,19 +15159,24 @@ const StoreAvailability = (function () {
      *
      * @param {Number} variantId The ID of the variant
      */
-    fetchContent: function (variant) {
-      const self = this;
-
-      if (window.Spruce.store('availability').availability[variant.id]) {
-        window.Spruce.store('availability').current_variant = variant;
+    __fetchContent: function (variant) {
+      if (window.Spruce.store("availability").availability[variant.id]) {
+        window.Spruce.store("availability").current_variant = variant;
+        window.Spruce.store("availability").loading = false;
         return;
       } else {
+        let baseUrl = this.container.dataset.baseUrl;
+
+        if (!baseUrl.endsWith("/")) {
+          baseUrl = baseUrl + "/";
+        }
+
         const variantSectionUrl =
-          this.container.dataset.baseUrl +
-          '/variants/' +
+          baseUrl +
+          "variants/" +
           variant.id +
-          '/?section_id=store-availability';
-        window.Spruce.store('availability').loading = true;
+          "/?section_id=store-availability";
+        window.Spruce.store("availability").loading = true;
 
         return fetch(variantSectionUrl)
           .then(function (response) {
@@ -15140,19 +15184,19 @@ const StoreAvailability = (function () {
           })
           .then(function (storeAvailabilityHTML) {
             // todo: think we can refactor this to be a little cleaner but right now i want this to work with both json and non json content
-            window.Spruce.store('availability').loading = false;
-            window.Spruce.store('availability').current_variant = variant;
-            let data = '';
+            window.Spruce.store("availability").loading = false;
+            window.Spruce.store("availability").current_variant = variant;
+            let data = "";
             const parser = new DOMParser();
             const html = parser.parseFromString(
               storeAvailabilityHTML,
-              'text/html',
+              "text/html"
             );
-            const dataWrapper = html.querySelector('[data-availability-json]');
+            const dataWrapper = html.querySelector("[data-availability-json]");
             if (dataWrapper) {
               data = JSON.parse(dataWrapper.innerHTML);
             }
-            window.Spruce.store('availability').availability[data.variant] =
+            window.Spruce.store("availability").availability[data.variant] =
               data.availability;
           });
       }
@@ -15162,11 +15206,7 @@ const StoreAvailability = (function () {
   return StoreAvailability;
 })();
 
-/* harmony default export */ var store_availability = (StoreAvailability);
-
-// EXTERNAL MODULE: ./node_modules/lodash/debounce.js
-var debounce = __webpack_require__(1);
-var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce);
+/* harmony default export */ var store_availability = (store_availability_StoreAvailability);
 
 // CONCATENATED MODULE: ./src/scripts/sections/product.js
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -15210,7 +15250,7 @@ register('product', {
     var alpineId = this.container.dataset.alpineId;
     var storeAvailabilityContainer = this.container.querySelector('[data-store-availability]');
     var variantImageBehaviour = this.container.dataset.variantImageBehaviour;
-    var isHorizontalGalleryTemplate = this.container.hasAttribute("data-product-horizontal-gallery");
+    var isHorizontalGalleryTemplate = this.container.hasAttribute('data-product-horizontal-gallery');
 
     if (!this.container.querySelector('[data-product-json]')) {
       return;
@@ -15242,9 +15282,13 @@ register('product', {
 
 
     var addToCartBtn = document.getElementById('addToCartButton');
-    window.addEventListener('DOMContentLoaded', function (event) {
-      document.documentElement.style.setProperty('--add-to-cart-height', "".concat(addToCartBtn.offsetHeight, "px"));
-    });
+
+    if (addToCartBtn) {
+      window.addEventListener('DOMContentLoaded', function (event) {
+        document.documentElement.style.setProperty('--add-to-cart-height', "".concat(addToCartBtn.offsetHeight, "px"));
+      });
+    }
+
     var functionName = 'ThemeSection_' + alpineId;
 
     window[functionName] = function () {
@@ -15261,6 +15305,7 @@ register('product', {
         addedToCart: false,
         loading: false,
         addErrorMessage: '',
+        changeVariant: null,
         formatMoney: function formatMoney(price) {
           return Object(currency_cjs["formatMoney"])(price, theme.moneyFormat);
         },
@@ -15298,8 +15343,15 @@ register('product', {
           ProductModel.init(models, section.sectionId);
         },
         mounted: function mounted() {
-          this.$refs.productForm.addEventListener('submit', this.submitForm.bind(this));
+          if (this.$refs.productForm) {
+            this.$refs.productForm.addEventListener('submit', this.submitForm.bind(this));
+          }
+
           this.getOptions();
+          this.changeVariant = debounce_default()(this.__changeVariant, 500, {
+            leading: true,
+            trailing: true
+          });
           this.initProductModels();
           window.Spruce.store('availability').current_variant = this.current_variant;
           this.updateStoreAvailability(this.current_variant);
@@ -15311,9 +15363,7 @@ register('product', {
             section.splideContainer.go(index);
           }
         },
-        optionChange: function optionChange() {
-          //loop through selectors and build product object to find current variant
-          this.getOptions();
+        __changeVariant: function __changeVariant() {
           var matchedVariant = getVariantFromOptionArray(this.product, this.options);
           this.current_variant = matchedVariant;
 
@@ -15338,6 +15388,11 @@ register('product', {
               bubbles: true
             }));
           }
+        },
+        optionChange: function optionChange() {
+          //loop through selectors and build product object to find current variant
+          this.getOptions();
+          this.changeVariant();
         },
         getOptions: function getOptions() {
           var _this2 = this;
@@ -15432,6 +15487,7 @@ register('product', {
         },
         updateStoreAvailability: function updateStoreAvailability(variant) {
           if (section.storeAvailability && variant && variant.available) {
+            window.Spruce.store("availability").loading = true;
             section.storeAvailability.fetchContent(variant);
           }
         },
@@ -16969,8 +17025,215 @@ function cart_defineProperty(obj, key, value) { if (key in obj) { Object.defineP
    */
   onUnload: function onUnload() {}
 }));
+// CONCATENATED MODULE: ./src/scripts/sections/search.js
+function search_toConsumableArray(arr) { return search_arrayWithoutHoles(arr) || search_iterableToArray(arr) || search_unsupportedIterableToArray(arr) || search_nonIterableSpread(); }
+
+function search_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function search_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return search_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return search_arrayLikeToArray(o, minLen); }
+
+function search_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function search_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return search_arrayLikeToArray(arr); }
+
+function search_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+register('search', {
+  onLoad: function onLoad() {
+    var section = this;
+
+    window['ThemeSection_search'] = function () {
+      return {
+        filtersOpen: false,
+        sortOpen: false,
+        filterData: [],
+        clickAway: function clickAway(event, property) {
+          this[property] = false;
+        },
+        focusOut: function focusOut(event, property) {
+          if (event.relatedTarget) {
+            var dropdownParent = event.relatedTarget.closest('[data-collection-dropdown]');
+
+            if (!dropdownParent) {
+              this[property] = false;
+            }
+          }
+        },
+        mounted: function mounted() {
+          var _this = this;
+
+          document.addEventListener('keyup', function (event) {
+            if (event.key === 'Escape') {
+              if (_this.filtersOpen) {
+                _this.filtersOpen = false;
+
+                _this.$refs.filter.focus();
+              }
+
+              if (_this.sortOpen) {
+                _this.sortOpen = false;
+
+                _this.$refs.sort.focus();
+              }
+            }
+          });
+          section.container.addEventListener('baseline:search:open-filters', function () {
+            _this.filtersOpen = true;
+          });
+          window.addEventListener('popstate', this.onHistoryChange.bind(this));
+          this.$watch('price_range', function (value) {
+            var params = new URLSearchParams(value);
+            _this.price_min = params.get("min");
+            _this.price_max = params.get("max");
+          });
+        },
+        filterFormSubmit: function filterFormSubmit(e) {
+          var formData = new FormData(e.target.closest('form'));
+          var searchParams = new URLSearchParams(formData);
+          searchParams["delete"]('price_range');
+          this.renderPage(searchParams.toString(), e);
+        },
+        getSections: function getSections() {
+          return [{
+            id: 'main-search',
+            section: document.getElementById('main-search').dataset.id
+          }];
+        },
+        clearAllFilters: function clearAllFilters(e) {
+          this.renderPage(new URL(e.currentTarget.href).searchParams.toString());
+        },
+        renderPage: function renderPage(searchParams, event) {
+          var _this2 = this;
+
+          var updateURLHash = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+          var sections = this.getSections();
+          document.getElementById('main-search').classList.add('opacity-10');
+          sections.forEach(function (section) {
+            var url = "".concat(window.location.pathname, "?section_id=").concat(section.section, "&").concat(searchParams);
+
+            var filterDataUrl = function filterDataUrl(element) {
+              return element.url === url;
+            };
+
+            _this2.filterData.some(filterDataUrl) ? _this2.renderSectionFromCache(filterDataUrl, event) : _this2.renderSectionFromFetch(url, event);
+          });
+          if (updateURLHash) this.updateURLHash(searchParams);
+        },
+        renderSectionFromFetch: function renderSectionFromFetch(url, event) {
+          var _this3 = this;
+
+          fetch(url).then(function (response) {
+            return response.text();
+          }).then(function (responseText) {
+            var html = responseText;
+            _this3.filterData = [].concat(search_toConsumableArray(_this3.filterData), [{
+              html: html,
+              url: url
+            }]);
+
+            _this3.renderFilters(html, event);
+
+            _this3.renderSearchGrid(html);
+
+            _this3.renderAdditionalElements(html);
+          });
+        },
+        renderSectionFromCache: function renderSectionFromCache(filterDataUrl, event) {
+          var html = this.filterData.find(filterDataUrl).html;
+          this.renderFilters(html, event);
+          this.renderSearchGrid(html);
+          this.renderAdditionalElements(html);
+        },
+        renderSearchGrid: function renderSearchGrid(html) {
+          var parsedHTML = new DOMParser().parseFromString(html, 'text/html');
+          var parsedSearchGrid = parsedHTML.getElementById('SearchGrid');
+          var searchGrid = document.getElementById('SearchGrid');
+
+          if (parsedSearchGrid && searchGrid) {
+            searchGrid.innerHTML = parsedSearchGrid.innerHTML;
+          }
+
+          document.getElementById('main-search').classList.remove('opacity-10');
+        },
+        renderFilters: function renderFilters(html) {
+          var parsedHTML = new DOMParser().parseFromString(html, 'text/html');
+          var parsedSearchFiltersForm = parsedHTML.getElementById('SearchFiltersForm');
+          var searchFiltersForm = document.getElementById('SearchFiltersForm');
+
+          if (parsedSearchFiltersForm && searchFiltersForm) {
+            searchFiltersForm.innerHTML = parsedSearchFiltersForm.innerHTML;
+          }
+        },
+        renderAdditionalElements: function renderAdditionalElements(html) {
+          var parsedHTML = new DOMParser().parseFromString(html, 'text/html');
+          var selectors = ['[data-main-search-title]', '[data-main-search-status]'];
+          selectors.forEach(function (selector) {
+            var el = document.querySelector(selector);
+            var parsedEl = parsedHTML.querySelector(selector);
+
+            if (el && parsedEl) {
+              el.innerHTML = parsedEl.innerHTML;
+            }
+          });
+        },
+        updateURLHash: function updateURLHash(searchParams) {
+          history.pushState({
+            searchParams: searchParams
+          }, '', "".concat(window.location.pathname).concat(searchParams && '?'.concat(searchParams)));
+        },
+        onHistoryChange: function onHistoryChange(event) {
+          var searchParams = event.state.searchParams || '';
+          this.renderPage(searchParams, null, false);
+        }
+      };
+    };
+  },
+  onBlockSelect: function onBlockSelect() {
+    this.container.dispatchEvent(new CustomEvent('baseline:search:open-filters'));
+  }
+});
+// CONCATENATED MODULE: ./src/scripts/sections/collapsible.js
+
+register('collapsible', {
+  onLoad: function onLoad() {
+    this.sectionId = this.id;
+    var alpineId = this.container.dataset.alpineId;
+    var functionName = 'ThemeSection_' + alpineId;
+    var singleTabAtATime = this.container.dataset.singleTabATime === 'true';
+    var firstTabOpenOnLoad = this.container.dataset.firstTabOpened === 'true';
+    var tabsCount = parseInt(this.container.dataset.tabsCount, 10);
+    var tabOpen = {};
+
+    for (var i = 0; i < tabsCount; i++) {
+      tabOpen['tab' + i] = i === 0 && firstTabOpenOnLoad;
+    }
+
+    window[functionName] = function () {
+      return {
+        tabOpen: tabOpen,
+        singleTabAtATime: singleTabAtATime,
+        mounted: function mounted() {},
+        openTab: function openTab(index) {
+          if (singleTabAtATime) {
+            for (var _i = 0; _i < tabsCount; _i++) {
+              if (index !== _i) {
+                this.tabOpen['tab' + _i] = false;
+              }
+            }
+          }
+
+          this.tabOpen['tab' + index] = !this.tabOpen['tab' + index];
+        }
+      };
+    };
+  },
+  onUnload: function onUnload() {}
+});
 // CONCATENATED MODULE: ./src/scripts/theme.js
 window.Baseline = window.Baseline || {};
+
+
 
 
 
@@ -17033,7 +17296,7 @@ if (window.navigator.cookieEnabled) {
 }
 
 var themeName = "Baseline",
-    themeVersion = "2.1.0";
+    themeVersion = "2.4.2";
 console.log("".concat(themeName, " ").concat(themeVersion, " by Switch Themes \u2013 https://switchthemes.co"));
 load('*');
 

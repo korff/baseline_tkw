@@ -8,9 +8,9 @@
 {%- if section.settings.show_announcement_bar -%}
   {%- if section.settings.home_page_only == false or template.name == 'index' -%}
     {%- if display == 'static' -%}
-      <div class="bg-{{ section_color }}-background text-{{ section_color }}-text border-b-grid border-grid-color text-center py-2" role="complementary">
+      <div class="bg-scheme-background text-scheme-text border-b-grid border-grid-color text-center py-2" role="complementary" data-color-scheme="{{ section_color }}">
         {%- if link != blank -%}
-          <a class="section-x-padding hover:text-{{ section_color }}-accent" href="{{ link }}">
+          <a class="section-x-padding hover:text-scheme-accent" href="{{ link }}">
             {{ text | escape }}
           </a>
         {%- else -%}

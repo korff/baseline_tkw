@@ -6,7 +6,7 @@
 -%}
 
 
-<div class="section-x-padding max-w-2xl mx-auto py-4 lg:px-8 lg:border-r-grid lg:border-l-grid lg:border-grid-color min-h-screen">
+<div class="section-x-padding max-w-2xl mx-auto py-4 lg:px-8 lg:border-r-grid lg:border-l-grid lg:border-grid-color min-h-screen" data-color-scheme="primary">
   <header class="giftcard__header text-center" role="banner">
     
     <div class="site-header__logo h1 text-center">
@@ -57,7 +57,7 @@
         <div class="giftcard__code absolute left-0 bottom-8 right-0 w-full text-center">
           <div class="giftcard__code__inner inline-block bg-white text-base lg:text-2xl uppercase text-center p-2">
             <input type="text"
-              class="block p-2 border-dashed border-primary-text border-2 giftcard__code__text{% if gift_card.expired or gift_card.enabled != true %} disabled{% endif %}"
+              class="block p-2 border-dashed border-scheme-text border-2 giftcard__code__text{% if gift_card.expired or gift_card.enabled != true %} disabled{% endif %}"
               id="GiftCardDigits"
               value="{{ gift_card.code | format_code }}"
               aria-label="{{ 'gift_cards.issued.gift_card_code' | t }}"
@@ -85,7 +85,7 @@
           </a>
         </li>
         <li class="mt-4">
-          <button type="button" class="inline-block hover:text-primary-accent text-base items-center justify-center {% if settings.links_show_underline %}border-b-text border-primary-text hover:border-primary-accent pb-1{% endif %}" onclick="window.print();">
+          <button type="button" class="inline-block hover:text-scheme-accent text-base items-center justify-center {% if settings.links_show_underline %}border-b-text border-scheme-text hover:border-scheme-accent pb-1{% endif %}" onclick="window.print();">
             {{ 'gift_cards.issued.print' | t }}{% if settings.links_show_arrow %}&nbsp;&rarr;{% endif %}
           </button>
         </li>

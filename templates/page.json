@@ -1,1 +1,1 @@
-{"sections":{"main":{"type":"main-page","settings":{}}},"order":["main"]}
+{"sections":{"main":{"type":"main-page","settings":{"content_width":"lg:w-2\/3","content_position":"lg:justify-end","color_scheme":"tertiary","override_header_footer_color_scheme":false}}},"order":["main"]}

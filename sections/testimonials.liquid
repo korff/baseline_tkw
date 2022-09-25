@@ -15,7 +15,7 @@
   endif
 -%}
 
-<section class="border-t-grid border-grid-color bg-border">
+<section class="border-t-grid border-grid-color bg-border" data-color-scheme="{{ section_color }}">
   {% if section.settings.heading != '' %}
     {%- render 'section-title',
       title: section.settings.heading,
@@ -23,7 +23,7 @@
     -%}
   {% endif %}
 
-  <div class="section-x-padding py-theme bg-{{ section_color }}-background text-{{ section_color }}-text  grid {{ grid_class }} gap-10">
+  <div class="section-x-padding py-theme bg-scheme-background text-scheme-text  grid {{ grid_class }} gap-10">
     {%-for block in section.blocks -%}
     <blockquote class="flex-1 {{ section.settings.text_align }}">
       <div class="font-{{ section.settings.text_style }} {{ section.settings.text_size }}">

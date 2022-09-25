@@ -1,5 +1,5 @@
 {%- assign section_color = section.settings.color_scheme -%}
-<section class="page text-{{ section_color }}-text bg-{{ section_color }}-background border-t-grid border-grid-color">
+<section class="page text-scheme-text bg-scheme-background border-t-grid border-grid-color" data-color-scheme="{{ section_color }}">
   <div class="section-x-padding py-theme lg:flex {{ section.settings.content_position }}">
     <div class="{{ section.settings.content_width }}">
       <div class="{%- if section.settings.content_position == 'lg:justify-center' -%}text-center{%- endif -%}">

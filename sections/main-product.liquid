@@ -51,7 +51,7 @@
 
 -%}
 
-<section class="grid grid-cols-1 lg:grid-cols-12 lg:bg-border grid-flow-row-dense lg:gap-gutter border-t-grid border-grid-color" x-data="ThemeSection_{{ section.id | handleize | replace: '-', '_' }}()" x-init="mounted()" data-section-id="{{ section.id }}" data-alpine-id="{{ section.id | handleize | replace: '-', '_' }}" data-section-type="product" data-enable-history-state="true" data-enable-image-zoom={{ section.settings.enable_image_zoom | json }} data-variant-image-behaviour="{{ section.settings.variant_image_behaviour }}">
+<section class="grid grid-cols-1 lg:grid-cols-12 lg:bg-border grid-flow-row-dense lg:gap-gutter border-t-grid border-grid-color" x-data="ThemeSection_{{ section.id | handleize | replace: '-', '_' }}()" x-init="mounted()" data-section-id="{{ section.id }}" data-alpine-id="{{ section.id | handleize | replace: '-', '_' }}" data-section-type="product" data-enable-history-state="true" data-enable-image-zoom={{ section.settings.enable_image_zoom | json }} data-variant-image-behaviour="{{ section.settings.variant_image_behaviour }}" data-color-scheme="{{ section_color }}">
   {%- liquid
     assign current_variant = product.selected_or_first_available_variant
     assign featured_media = current_variant.featured_media | default: product.featured_media
@@ -64,13 +64,13 @@
       {%- break -%}
     {%- endif -%}
   {%- endfor -%}
-  <div class="relative {% if product.media.size > 1 %}pb-8{% endif %} lg:pb-0 product-media-container bg-{{ section_color }}-background text-{{ section_color }}-text {{ image_width_desktop }} {% unless settings.fill_image_to_border_edge %}border-b-grid border-grid-color lg:border-0{% endunless %}" data-product-single-media-group>
+  <div class="relative {% if product.media.size > 1 %}pb-8{% endif %} lg:pb-0 product-media-container bg-scheme-background text-scheme-text {{ image_width_desktop }} {% unless settings.fill_image_to_border_edge %}border-b-grid border-grid-color lg:border-0{% endunless %}" data-product-single-media-group>
   <div class="splide splide--product lg:sticky lg:top-sticky-header  {% if negative_margin %}lg:-mb-theme-width{% endif %}" data-drag-disabled="{{ has_interactive_media }}" {% if product.media.size > 1 %}data-slideshow-enabled="true"{% endif %}>	
     <div class="transition-max-height splide__track {% if settings.fill_image_to_border_edge %}border-b-grid border-grid-color lg:border-0{% endif %} {% unless settings.fill_image_to_border_edge %}lg:p-4{% endunless %} {% if negative_margin %}lg:border-b-grid lg:border-grid-color{% endif %}">
       <ul class="splide__list lg:w-full lg:grid {% if two_images_per_row and product.media.size > 1 %}lg:grid-cols-2{% else %}lg:grid-cols-1{% endif %} {% if settings.fill_image_to_border_edge %}lg:gap-gutter lg:bg-border{% else %}lg:gap-4{% endif%}">
         {%- if featured_media != null -%}
           {%- assign media = featured_media -%}
-          <li  class="{% if left_over > 0 or first_image_full_width %}col-span-2{% endif %} splide__slide bg-{{ section_color }}-background" data-index="0" data-first-media>
+          <li  class="{% if left_over > 0 or first_image_full_width %}col-span-2{% endif %} splide__slide bg-scheme-background" data-index="0" data-first-media>
             {%- render 'product-media',
               media: media,
               image_index: image_index,
@@ -96,7 +96,7 @@
               endif
             -%}
             {%- unless media.id == featured_media.id -%}
-            <li {% if featured_media == null and forloop.first %}data-first-media{% endif %} class="{% if full_width_image %}col-span-2{% endif %} splide__slide bg-{{ section_color }}-background" data-index="{% if featured_media == null %}{{ forloop.index0 }}{% else %}{{ forloop.index }}{% endif %}">
+            <li {% if featured_media == null and forloop.first %}data-first-media{% endif %} class="{% if full_width_image %}col-span-2{% endif %} splide__slide bg-scheme-background" data-index="{% if featured_media == null %}{{ forloop.index0 }}{% else %}{{ forloop.index }}{% endif %}">
               {%- render 'product-media',
                 media: media,
                 image_index: image_index,
@@ -112,7 +112,7 @@
         </ul>
       </div>
       {% assign first_3d_model = product.media | where: "media_type", "model" | first %}
-      <div class="js-enabled lg:hidden splide__arrows text-{{ section_color }}-text absolute right-0 {% if first_3d_model %}bottom-slide-arrows{% endif %} mr-1 lg:mr-4 text-right mt-2">
+      <div class="js-enabled lg:hidden splide__arrows text-scheme-text absolute right-0 {% if first_3d_model %}bottom-slide-arrows{% endif %} mr-1 lg:mr-4 text-right mt-2">
         <button class="splide__arrow splide__arrow--prev w-8">
           <span class="visually-hidden">{{ 'sections.slideshow.previous_slide' | t }}</span>
           <span class="block">{% render 'icon-previous' %}</span>
@@ -125,7 +125,7 @@
       {%- if first_3d_model -%}
         <div class="section-x-padding text-center">
           <button aria-label="{{ 'products.product.view_in_space_label' | t }}"
-                  class="product-single__view-in-space mt-4 mb-2 lg:my-4 w-full py-2 pl-2 pr-4 max-w-sm text-center border-text border-{{ section_color }}-text"
+                  class="product-single__view-in-space mt-4 mb-2 lg:my-4 w-full py-2 pl-2 pr-4 max-w-sm text-center border-text border-scheme-text"
                   data-shopify-xr
                   data-shopify-model3d-id="{{ first_3d_model.id }}"
                   data-shopify-title="{{ product.title }}"
@@ -137,7 +137,7 @@
     </div>
   </div>
 
-  <div class="product-content-container bg-{{ section_color }}-background text-{{ section_color }}-text section-x-padding {{ content_width_desktop }}" x-ref="productContent">
+  <div class="product-content-container bg-scheme-background text-scheme-text section-x-padding {{ content_width_desktop }}" x-ref="productContent">
     <div class="lg:sticky lg:top-sticky-header py-theme product-block-area">
       {%- render 'product-form', product: product, section: section, section_color: section_color -%}
     </div>

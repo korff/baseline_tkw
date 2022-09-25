@@ -1,9 +1,9 @@
 
-<div class="bg-{{ section_color }}-background text-{{ section_color }}-text section-x-padding pb-theme-double pt-theme text-right border-t-grid border-grid-color text-sm md:text-base">
+<div class="bg-scheme-background text-scheme-text section-x-padding pb-theme-double pt-theme text-right border-t-grid border-grid-color text-sm md:text-base" data-color-scheme="{{ section_color }}">
   <ul class="pagination flex items-center">
     <li class="w-28 md:w-1/3 text-left mr-auto">
       {% if paginate.previous.is_link %}
-        <a class="hover:text-{{ section_color }}-accent inline-flex items-center justify-center {% if settings.links_show_underline %}border-b-text border-{{ section_color }}-text hover:border-{{ section_color }}-accent pb-1{% endif %}" href="{{ paginate.previous.url }}">
+        <a class="hover:text-scheme-accent inline-flex items-center justify-center {% if settings.links_show_underline %}border-b-text border-scheme-text hover:border-scheme-accent pb-1{% endif %}" href="{{ paginate.previous.url }}">
           {% if settings.links_show_arrow %}&larr;&nbsp;{% endif %}
           <span class="{% if settings.links_uppercase %}uppercase{% endif %}">{{ 'general.pagination.previous' | t }}</span>
         </a>
@@ -18,7 +18,7 @@
         </li>
       {%- else -%}
         {%- if part.title == paginate.current_page -%}
-          <li class="inline-block p-2 active border-b-text border-{{ section_color }}-text" aria-current="page">
+          <li class="inline-block p-2 active border-b-text border-scheme-text" aria-current="page">
             <span class="visually-hidden">page</span> {{ part.title }}
           </li>
         {%- else -%}
@@ -30,7 +30,7 @@
     {%- endfor -%}
     <li class="w-28 md:w-1/3 ml-auto text-right">
       {% if paginate.next.is_link %}
-        <a class="hover:text-{{ section_color }}-accent inline-flex items-center justify-center {% if settings.links_show_underline %}border-b-text border-{{ section_color }}-text hover:border-{{ section_color }}-accent pb-1{% endif %}" href="{{ paginate.next.url }}">
+        <a class="hover:text-scheme-accent inline-flex items-center justify-center {% if settings.links_show_underline %}border-b-text border-scheme-text hover:border-scheme-accent pb-1{% endif %}" href="{{ paginate.next.url }}">
           <span class="{% if settings.links_uppercase %}uppercase{% endif %}">{{ 'general.pagination.next' | t }}</span>
           {% if settings.links_show_arrow %}&nbsp;&rarr;{% endif %}
         </a>

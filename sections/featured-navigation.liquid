@@ -17,7 +17,7 @@
   endcase
 -%}
 
-<section class="featured-navigation bg-{{ section_color }}-background text-{{ section_color }}-text  border-t-grid border-grid-color" x-data="{ current_link: '' }">
+<section class="featured-navigation bg-scheme-background text-scheme-text  border-t-grid border-grid-color" x-data="{ current_link: '' }" data-color-scheme="{{ section_color }}">
   <div class="section-x-padding py-theme">
     <nav role="navigation" class="{{ text_size_mobile }} {{ text_size_desktop }} {{ text_align }} w-full" aria-label="{{ linklists[menu].title }}">
       <ul class="space-y-1">
@@ -58,7 +58,7 @@
           {%- endcapture -%}
           {%- endif -%}
           <li class="{{ list_class }}">
-            <a href="{{ link.url }}" class="relative font-heading hover:text-{{ section_color }}-accent break-words" x-on:mouseenter="current_link = '{{ link.title | handleize }}'" x-on:mouseleave="current_link = ''">
+            <a href="{{ link.url }}" class="relative font-heading hover:text-scheme-accent break-words" x-on:mouseenter="current_link = '{{ link.title | handleize }}'" x-on:mouseleave="current_link = ''">
               {% if superscript == 'index' %}{{ superscript_content }}{% endif %}<span class="hover:underline">{{ link.title }}</span>{% if superscript == 'product_count' and menu_item_is_collection %}{{ superscript_content }}{% endif %}
             </a>
             {%- if paragraph_separator != 'none' and display != 'list' and forloop.last == false -%}

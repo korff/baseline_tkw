@@ -1,4 +1,4 @@
-<section class="py-theme bg-{{ section_color }}-background text-{{ section_color }}-text border-t-grid border-grid-color">
+<section class="py-theme bg-scheme-background text-scheme-text border-t-grid border-grid-color" data-color-scheme="{{ section_color }}">
   <div class="section-x-padding lg:flex justify-center lg:items-center lg:justify-between">
     <div class=" {{ text_size_class }} {% if text_size_class contains 'xl' %}lg:w-1/2{% endif %}">
       {% if section_title != blank %}
@@ -32,7 +32,7 @@
             autocorrect="off"
             autocapitalize="off">
 
-          <button class="mt-2 lg:mt-0 lg:ml-2 pb-1 font-body align-top inline-flex items-center justify-center hover:text-{{ section_color }}-accent {% if settings.links_show_underline %}border-b-text border-{{ section_color }}-text  hover:border-{{ section_color }}-accent pb-1{% endif %}" type="submit" name="commit" id="Subscribe">
+          <button class="mt-2 lg:mt-0 lg:ml-2 pb-1 font-body align-top inline-flex items-center justify-center hover:text-scheme-accent {% if settings.links_show_underline %}border-b-text border-scheme-text  hover:border-scheme-accent pb-1{% endif %}" type="submit" name="commit" id="Subscribe">
             <span class="{% if settings.links_uppercase %}uppercase{% endif %} whitespace-nowrap">{{ 'general.newsletter_form.submit' | t }}{% if settings.links_show_arrow %}&nbsp;&rarr;{% endif %}</span>
           </button>
         </div>

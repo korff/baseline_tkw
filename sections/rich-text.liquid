@@ -31,7 +31,9 @@
       assign desktop_alignment = 'justify-center'
   endcase
 -%}
-<section class="bg-{{ section_color }}-background text-{{ section_color }}-text overflow-hidden border-t-grid border-grid-color">
+<section
+  class="bg-scheme-background text-scheme-text overflow-hidden border-t-grid border-grid-color"
+  data-color-scheme="{{ section_color }}">
   <div class="px-2 lg:px-4 py-theme">
     <div class="flex {{ text_size_mobile }} {{ text_size_desktop }} {{ text_align }} {{ desktop_alignment }}">
       <div class="w-full {{ desktop_width }}">
@@ -51,7 +53,7 @@
             {%- render 'link-underline',
               section_color: section_color,
               text: section.settings.cta_text,
-              link: section.settings.cta_link,
+              link: section.settings.cta_link
             -%}
           {%- when 'button' -%}
             <a href="{{ section.settings.cta_link }}" class="inline-flex justify-center items-center text-base px-8 py-2 {% render 'button-style', section_color: section_color %}  {% render 'button-color', section_color: section_color %} ">

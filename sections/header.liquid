@@ -33,16 +33,16 @@
 -%}
 
 <style>
-:root {
-  --color-header-accent: var(--color-{{ section.settings.color_scheme }}-accent);
-  --color-header-text: var(--color-{{ section.settings.color_scheme }}-text);
-  --color-header-background: var(--color-{{ section.settings.color_scheme }}-background);
-  --color-header-background-hex: var(--color-{{ section.settings.color_scheme }}-background-hex);
-  --color-header-background-0: var(--color-{{ section.settings.color_scheme }}-background-0);
-  --color-header-meta: var(--color-{{ section.settings.color_scheme }}-meta);
-  --color-header-text--overlay: var(--color-{{ section.settings.color_scheme }}-text--overlay);
-  --color-header-accent--overlay: var(--color-{{ section.settings.color_scheme }}-accent--overlay);
-  --color-header-accent-placeholder: var(--color-{{ section.settings.color_scheme }}-text-placeholder);
+[data-color-scheme="header"] {
+  --color-scheme-accent: var(--color-{{ section.settings.color_scheme }}-accent);
+  --color-scheme-text: var(--color-{{ section.settings.color_scheme }}-text);
+  --color-scheme-background: var(--color-{{ section.settings.color_scheme }}-background);
+  --color-scheme-background-hex: var(--color-{{ section.settings.color_scheme }}-background-hex);
+  --color-scheme-background-0: var(--color-{{ section.settings.color_scheme }}-background-0);
+  --color-scheme-meta: var(--color-{{ section.settings.color_scheme }}-meta);
+  --color-scheme-text--overlay: var(--color-{{ section.settings.color_scheme }}-text--overlay);
+  --color-scheme-accent--overlay: var(--color-{{ section.settings.color_scheme }}-accent--overlay);
+  --color-scheme-accent-placeholder: var(--color-{{ section.settings.color_scheme }}-text-placeholder);
 }
 </style>
 
@@ -169,7 +169,7 @@
               <span class="inline-block pr-1">{{ link.title }}</span>
               <span class="inline-block align-middle svg-scale mr-1 transform origin-center rotate transition" :class="{'rotate-180': menuOpen.menu{{ counter }}}">{% render 'icon-chevron-down' %}</span>
             </button>
-            <div class="no-js-focus-container absolute left-0 bottom-0 w-full transform translate-y-full z-20 bg-{{ section_color }}-background text-{{ section_color }}-text border-t-grid border-b-grid border-grid-color"
+            <div class="no-js-focus-container absolute left-0 bottom-0 w-full transform translate-y-full z-20 bg-scheme-background text-scheme-text border-t-grid border-b-grid border-grid-color"
                   id="menu{{ counter }}"
                   x-cloak
                   x-show="menuOpen.menu{{ counter }}"
@@ -181,7 +181,8 @@
                   x-transition:leave-end="opacity-0"
                   data-header-dropdown
                   @focusout="focusOut($event, 'menu{{ counter }}')"
-                  @click.away.prevent="menuOpen.menu{{ counter }} = false">
+                  @click.away.prevent="menuOpen.menu{{ counter }} = false"
+                  data-color-scheme="{{ section_color }}">
               <div class="section-x-padding text-{{ section.settings.dropdown_text_align }}">
                 {%- if child_menu != blank and grandchild_menu == blank -%}
                   <ul class="-ml-4 py-2">
@@ -281,7 +282,7 @@
       <span class="my-auto">{{ 'layout.navigation.search' | t }}</span>
       {%- endif -%}
     </a>
-    <div class="absolute left-0 bottom-0 w-full transform {% if layout contains 'menu_below' %}translate-y-1{% else %}translate-y-full{% endif %} z-20 bg-{{ section_color }}-background text-{{ section_color }}-text border-b-grid border-t-grid border-grid-color py-2 section-x-padding"
+    <div class="absolute left-0 bottom-0 w-full transform {% if layout contains 'menu_below' %}translate-y-1{% else %}translate-y-full{% endif %} z-20 bg-scheme-background text-scheme-text border-b-grid border-t-grid border-grid-color py-2 section-x-padding"
       x-cloak
       x-show="searchOpen"
       x-transition:enter="transition ease duration-200"
@@ -293,6 +294,7 @@
       @click.away.prevent="searchOpen = false"
       data-header-search
       @focusout="searchFocusOut($event)"
+      data-color-scheme="{{ section_color }}"
     >
       <form action="{{ routes.search_url }}" method="get" class="input-group search" role="search">
         <label for="search" class="hidden">{{ 'general.search.submit' | t }}</label>
@@ -333,7 +335,7 @@
     >
   {%- if show_icons -%}
     <div class="relative my-auto align-middle">
-      <span id="CartCount" x-show="$store.cartCount.count > 0" class="absolute top-1 right-0 w-2 h-2 rounded-full bg-{{ section_color }}-accent"></span>
+      <span id="CartCount" x-show="$store.cartCount.count > 0" class="absolute top-1 right-0 w-2 h-2 rounded-full bg-scheme-accent" data-color-scheme="{{ section_color }}"></span>
       <span class="inline-block w-5 h-5 fill-current align-top">{%- render 'icon-cart' -%}</span>
       <span class="visually-hidden" x-text="$store.cartCount.countWithText()"></span>
     </div>
@@ -343,10 +345,22 @@
   </a>
 {%- endcapture -%}
 
-<section x-data="ThemeSection_{{ section.id }}()" x-init="mounted()" data-section-id="{{ section.id }}" data-section-type="header" data-dropdown-count="{{ counter }}" class="{% if overlay_header %}absolute top-0 left-0 right-0 z-50{% endif %}" {% if section.settings.sticky_header %}data-sticky="true"{% endif %}>
+<section
+  x-data="ThemeSection_{{ section.id }}()"
+  x-init="mounted()"
+  data-section-id="{{ section.id }}"
+  data-section-type="header"
+  data-dropdown-count="{{ counter }}"
+  class="{% if overlay_header %}absolute top-0 left-0 right-0 z-50{% endif %}"
+  {% if section.settings.sticky_header %}data-sticky="true"{% endif %}
+  data-color-scheme="{{ section_color }}"
+  data-overlay-header-with-sticky="{{ overlay_header_with_sticky | default: false }}"
+  data-overlay-text-color="{{ overlay_text_color }}"
+>
   <header
-    {% if overlay_header_with_sticky -%}:class="{ 'bg-{{ section_color }}-background text-{{ section_color }}-text border-{{ section_color }}-text' : headerIsStuck, 'bg-transparent text-{{ overlay_text_color }}-text border-{{ overlay_text_color }}-text' : !headerIsStuck }" {% endif -%}
-    class="{% if overlay_header_without_sticky %}text-{{ overlay_text_color }}-text{% endif %} {% unless overlay_header_without_sticky %}bg-{{ section_color }}-background text-{{ section_color }}-text{% endunless %} border-b-grid relative z-10 {% if overlay_header_without_sticky %}border-{{ overlay_text_color }}-text{% endif %} {% unless overlay_header %}border-theme-color{% endunless %}">
+    x-ref="header"
+    class="border-b-grid relative z-10 text-scheme-text border-scheme-text {% unless overlay_header %}border-theme-color bg-scheme-background{% endunless %}"
+    data-color-scheme="{%- if overlay_header_without_sticky -%}{{ overlay_text_color }}{%- else -%}{{ section_color }}{%- endif -%}">
     <nav class="relative hidden {% if settings.header_uppercase %}uppercase{% endif %} {% unless layout contains 'menu_drawer' %}lg:block{% endunless %}" aria-label="Primary">
       <div class="section-x-padding flex items-stretch justify-between {% if layout contains 'spread' %}flex-wrap{% endif %} py-2">
         <div class="flex items-stretch {% if layout contains 'center' %}flex-grow w-1/3{% endif %}">

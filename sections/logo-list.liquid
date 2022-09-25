@@ -1,5 +1,5 @@
 {%- liquid
-  assign section_color = 'primary'
+  assign section_color = section.settings.color_scheme
   assign logo_alignment = section.settings.logo_alignment
 -%}
 <section class="border-t-grid border-grid-color bg-border">
@@ -10,7 +10,7 @@
     -%}
   {% endif %}
 
-  <div class="bg-{{ section_color }}-background text-{{ section_color }}-text section-x-padding py-theme flex flex-wrap lg:flex-nowrap items-center {% unless logo_alignment == 'left' %}justify-center{% endunless %} -mt-4 lg:mt-0 lg:-mx-5">
+  <div class="bg-scheme-background text-scheme-text section-x-padding py-theme flex flex-wrap lg:flex-nowrap items-center {% unless logo_alignment == 'left' %}justify-center{% endunless %} -mt-4 lg:mt-0 lg:-mx-5" data-color-scheme="{{ section_color }}">
     {%-for block in section.blocks -%}
       {% if block.settings.image != blank %}
         <div class="relative block w-1/3 mt-4 lg:mt-0 px-5" data-fade-in style="max-width: {{ section.settings.max_width }}px">
@@ -28,8 +28,8 @@
           {%- endif -%}
         </div>
       {% else %}
-        <div class="relative block w-1/3 mt-4 lg:mt-0  px-5" data-fade-in style="max-width: {{ section.settings.max_width }}px">
-          {{ 'logo' | placeholder_svg_tag: 'placeholder-svg w-full h-full text-primary-text fill-current' }}
+        <div class="relative block w-1/3 mt-4 lg:mt-0  px-5" data-fade-in style="max-width: {{ section.settings.max_width }}px" data-color-scheme="{% if section_color == 'tertiary' %}white{% else %}primary{% endif %}">
+          {{ 'logo' | placeholder_svg_tag: 'placeholder-svg w-full h-full text-scheme-text fill-current' }}
         </div>
       {% endif %}
     {%- endfor -%}

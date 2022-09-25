@@ -1,25 +1,20 @@
 <style>
-:root:root {
-  --color-header-accent: var(--color-{{ section_color }}-accent);
-  --color-header-text: var(--color-{{ section_color }}-text);
-  --color-header-background: var(--color-{{ section_color }}-background);
-  --color-header-background-hex: var(--color-{{ section_color }}-background-hex);
-  --color-header-meta: var(--color-{{ section_color }}-meta);
-  --color-header-text--overlay: var(--color-{{ section_color }}-text--overlay);
-  --color-header-accent--overlay: var(--color-{{ section_color }}-accent--overlay);
-  --color-header-accent-placeholder: var(--color-{{ section_color }}-text-placeholder);
-  --color-header-background-0: var(--color-{{ section_color }}-background-0);
-  --color-footer-accent: var(--color-{{ section_color }}-accent);
-  --color-footer-text: var(--color-{{ section_color }}-text);
-  --color-footer-background: var(--color-{{ section_color }}-background);
-  --color-footer-background-hex: var(--color-{{ section_color }}-background-hex);
-  --color-footer-meta: var(--color-{{ section_color }}-meta);
-  --color-footer-text--overlay: var(--color-{{ section_color }}-text--overlay);
-  --color-footer-accent--overlay: var(--color-{{ section_color }}-accent--overlay);
-  --color-footer-accent-placeholder: var(--color-{{ section_color }}-text-placeholder);
-}
 html {
   background-color: var(--color-{{ section_color }}-background);
   color: var(--color-{{ section_color }}-text);
+}
+
+
+header[data-color-scheme="header"],
+section[data-color-scheme="header"],
+footer[data-color-scheme="footer"] {
+  --color-scheme-accent: var(--color-{{ section_color }}-accent);
+  --color-scheme-text: var(--color-{{ section_color }}-text);
+  --color-scheme-background: var(--color-{{ section_color }}-background);
+  --color-scheme-background-hex: var(--color-{{ section_color }}-background-hex);
+  --color-scheme-meta: var(--color-{{ section_color }}-meta);
+  --color-scheme-text--overlay: var(--color-{{ section_color }}-text--overlay);
+  --color-scheme-accent--overlay: var(--color-{{ section_color }}-accent--overlay);
+  --color-scheme-accent-placeholder: var(--color-{{ section_color }}-text-placeholder);
 }
 </style>

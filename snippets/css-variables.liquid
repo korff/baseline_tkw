@@ -389,4 +389,52 @@
     --icon-svg-select-tertiary: {{ icon_select_svg_tertiary }};
 
   }
+
+  [data-color-scheme="primary"] {
+    --color-scheme-text: {{ settings.color_primary_text | color_to_rgb }};
+    --color-scheme-background: {{ settings.color_primary_background | color_to_rgb }};
+    --color-scheme-accent: {{ settings.color_primary_accent | color_to_rgb }};
+    --color-scheme-meta: {{ settings.color_primary_meta | color_to_rgb }};
+    --color-scheme-text--overlay: {{ primary_overlay_color | color_to_rgb }};
+    --color-scheme-accent--overlay: {{ primary_accent_overlay_color | color_to_rgb }};
+    --color-scheme-text-placeholder: {{ settings.color_primary_text | color_to_rgb | color_modify: 'alpha', 0.1 }};
+    --color-scheme-background-0: {{ settings.color_primary_background | color_to_rgb | color_modify: 'alpha', 0 }};
+    --payment-terms-background-color: {{ settings.color_primary_background }};
+  }
+  [data-color-scheme="secondary"] {
+    --color-scheme-text: {{ settings.color_secondary_text | color_to_rgb }};
+    --color-scheme-background: {{ settings.color_secondary_background | color_to_rgb }};
+    --color-scheme-accent: {{ settings.color_secondary_accent | color_to_rgb }};
+    --color-scheme-meta: {{ settings.color_secondary_meta | color_to_rgb }};
+    --color-scheme-text--overlay: {{ secondary_overlay_color | color_to_rgb }};
+    --color-scheme-accent--overlay: {{ secondary_accent_overlay | color_to_rgb }};
+    --color-scheme-text-placeholder: {{ settings.color_secondary_text | color_to_rgb | color_modify: 'alpha', 0.1 }};
+    --color-scheme-background-0: {{ settings.color_secondary_background | color_to_rgb | color_modify: 'alpha', 0 }};
+    --payment-terms-background-color: {{ settings.color_secondary_background }};
+  }
+  [data-color-scheme="tertiary"] {
+    --color-scheme-text: {{ settings.color_tertiary_text | color_to_rgb }};
+    --color-scheme-background: {{ settings.color_tertiary_background | color_to_rgb }};
+    --color-scheme-accent: {{ settings.color_tertiary_accent | color_to_rgb }};
+    --color-scheme-meta: {{ settings.color_tertiary_meta | color_to_rgb }};
+    --color-scheme-text--overlay: {{ tertiary_overlay_color | color_to_rgb }};
+    --color-scheme-accent--overlay: {{ tertiary_accent_overlay | color_to_rgb }};
+    --color-scheme-text-placeholder: {{ settings.color_tertiary_text | color_to_rgb | color_modify: 'alpha', 0.1 }};
+    --color-scheme-background-0: {{ settings.color_tertiary_background | color_to_rgb | color_modify: 'alpha', 0 }};
+    --payment-terms-background-color: {{ settings.color_tertiary_background }};
+  }
+
+  [data-color-scheme="white"] {
+    --color-scheme-text: #ffffff;
+    --color-scheme-accent: #ffffff;
+    --color-scheme-text--overlay: {{ white_text_overlay_color | color_to_rgb }};
+    --color-scheme-accent--overlay: {{ white_text_overlay_color | color_to_rgb }};
+  }
+
+  [data-color-scheme="black"] {
+    --color-scheme-text: #000000;
+    --color-scheme-accent: #000000;
+    --color-scheme-text--overlay: {{ black_text_overlay_color | color_to_rgb }};
+    --color-scheme-accent--overlay: {{ black_text_overlay_color | color_to_rgb }};
+  }
 </style>

@@ -1,8 +1,8 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
 {%- assign section_color = section.settings.color_scheme -%}
-<section class="page  grid grid-cols-1 lg:grid-cols-2 gap-theme bg-border border-t-grid border-grid-color">
+<section class="page  grid grid-cols-1 lg:grid-cols-2 gap-theme bg-border border-t-grid border-grid-color" data-color-scheme="{{ section_color }}">
   
-  <div class="section-x-padding py-theme text-{{ section_color }}-text bg-{{ section_color }}-background lg:flex {{ section.settings.content_position }}">
+  <div class="section-x-padding py-theme text-scheme-text bg-scheme-background lg:flex {{ section.settings.content_position }}">
     <div>
       <div class="{%- if section.settings.content_position == 'lg:justify-center' -%}text-center{%- endif -%}">
         <h1 class="font-heading {{ settings.template_heading_size }} break-words">{{ page.title }}</h1>
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="section-x-padding py-theme  text-{{ section_color }}-text bg-{{ section_color }}-background">
+  <div class="section-x-padding py-theme  text-scheme-text bg-scheme-background">
     {%- assign formId = 'ContactForm' -%}
     {% form 'contact', id: formId %}
       {% render 'form-status', form: form, form_id: formId, section_color: section_color %}

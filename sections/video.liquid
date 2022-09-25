@@ -4,7 +4,7 @@
   assign ratio = section.settings.aspect_ratio | split: ':'
   assign ratio = ratio[1] | plus: 0.0 | divided_by: ratio[0] | plus: 0.0 | times: 100.0
 -%}
-<section class="video bg-{{ section_color }}-background text-{{ section_color }}-text overflow-hidden border-t-grid border-grid-color">
+<section class="video bg-scheme-background text-scheme-text overflow-hidden border-t-grid border-grid-color" data-color-scheme="{{ section_color }}">
   {% if section.settings.title != '' %}
     {%- render 'section-title',
       title: section.settings.title,
@@ -20,7 +20,7 @@
           <button  @click="enableVideo()" class="absolute top-0 left-0 right-0 bottom-0 h-full w-full flex items-center justify-center group" type="button">
             <div class="z-40 text-center">
               <span
-                class="rounded-full w-14 h-14 bg-{{ section_color }}-background text-{{ section_color }}-background-overlay  inline-flex items-center justify-center hover:bg-{{ section_color }}-accent hover:text-{{ section_color }}-accent-overlay transition-opacity"
+                class="rounded-full w-14 h-14 bg-scheme-background text-scheme-background-overlay  inline-flex items-center justify-center hover:bg-scheme-accent hover:text-scheme-accent-overlay transition-opacity"
               >
                 <span class="w-8 h-8 inline-block" >{% render 'icon-play' %}</span>
               </span>

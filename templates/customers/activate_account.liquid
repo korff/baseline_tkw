@@ -1,12 +1,12 @@
 
 
-<div class="section-x-padding py-theme max-w-md mx-auto" x-data="BaselineLogin()" x-init="mounted()">
+<div class="section-x-padding py-theme max-w-md mx-auto" x-data="BaselineLogin()" x-init="mounted()" data-color-scheme="primary">
   <h1 class="font-heading text-2xl mb-2">{{ 'customer.activate_account.title' | t }}</h1>
   <p>{{ 'customer.activate_account.subtext' | t }}</p>
 
   {% form 'activate_customer_password' %}
     {% if form.errors %}
-      <div class="mt-4 text-primary-accent" tabindex="-1" data-login-error>{{ form.errors | default_errors }}</div>
+      <div class="mt-4 text-scheme-accent" tabindex="-1" data-login-error>{{ form.errors | default_errors }}</div>
     {% endif %}
 
       <label class="block mt-4" for="CustomerPassword">

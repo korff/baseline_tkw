@@ -1,5 +1,5 @@
 {%- assign section_color = 'primary' -%}
-<section id="main-cart-items" x-data="ThemeSection_Cart()" x-init="mounted()" data-section-id="{{ section.id }}" data-id="{{ section.id }}" data-section-type="cart" class="transition-opacity duration-200 ease-in-out">
+<section id="main-cart-items" x-data="ThemeSection_Cart()" x-init="mounted()" data-section-id="{{ section.id }}" data-id="{{ section.id }}" data-section-type="cart" class="transition-opacity duration-200 ease-in-out" data-color-scheme="{{ section_color }}">
   <div class="js-contents">
   {% if cart.item_count > 0 %}
     <div class="relative section-x-padding pt-theme-double pb-theme md:pb-0">
@@ -65,7 +65,7 @@
                     {% endif %}
 
                     <p class="text-sm cart-item-error my-2 hidden" id="Line-item-error-{{ item.index | plus: 1 }}">
-                      <span class="cart-item-error-text text-{{ section_color }}-accent"></span>
+                      <span class="cart-item-error-text text-scheme-accent"></span>
                     </p>
 
                     <div class="flex my-2 items-center lg:hidden">
@@ -172,7 +172,7 @@
                   {%- endif -%}
 
                   {%- if item.line_level_discount_allocations != blank -%}
-                    <ul class="mt-1 text-sm text-{{ section_color }}-accent" aria-label="{{ 'customer.order.discount' | t }}">
+                    <ul class="mt-1 text-sm text-scheme-accent" aria-label="{{ 'customer.order.discount' | t }}">
                       {%- for discount_allocation in item.line_level_discount_allocations -%}
                         <li class="order-discount__item">
                           {{ discount_allocation.discount_application.title }} -{{ discount_allocation.amount | money }}
@@ -201,10 +201,10 @@
           <p class="mb-8">{{ 'cart.general.empty' | t }}</p>
           {% assign continue_shopping = 'cart.general.continue_shopping' | t %}
           {%- render 'link-underline',
-                section_color: section_color,
-                text: continue_shopping,
-                link: routes.root_url,
-              -%}
+            section_color: section_color,
+            text: continue_shopping,
+            link: routes.root_url
+          -%}
         </div>
 
         {% comment %}

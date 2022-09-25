@@ -33,7 +33,7 @@
       <div class="rte" x-show="!open">
       {{ product.description | strip_newlines | truncatewords: 25 | newline_to_br }}
       </div>
-      <button @click="open = !open" x-show="!open" :aria-expanded="open ? true : 'false'" class="mt-4 inline-flex justify-start items-center hover:text-{{ section_color }}-accent text-base items-center justify-center {% if settings.links_show_underline %}border-b-text border-{{ section_color }}-text hover:border-{{ section_color }}-accent pb-1{% endif %} cursor-pointer">
+      <button @click="open = !open" x-show="!open" :aria-expanded="open ? true : 'false'" class="mt-4 inline-flex justify-start items-center hover:text-scheme-accent text-base items-center justify-center {% if settings.links_show_underline %}border-b-text border-scheme-text hover:border-scheme-accent pb-1{% endif %} cursor-pointer">
         <span class="{% if settings.links_uppercase %}uppercase{% endif %}">{{ 'products.product.read_more' | t }}</span>
         <span class="inline-block w-5 h-5 ml-2">{%- render 'icon-plus' %}</span>
       </button>
